@@ -1,0 +1,13 @@
+.matches {
+    height: 50rem;
+    background-color: $background;
+    position: relative;
+
+    &__box {
+        @include center;
+        font-size: 3rem;
+        font-weight: 300;
+        color: $grey-light; 
+        text-transform: capitalize;
+    }
+}
