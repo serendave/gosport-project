@@ -2,15 +2,22 @@
     display: block;
     width: max-content;
     color: $dark;
-    font-family: inherit;
-    font-size: 2.4rem;
+    font: inherit;
+    border: none;
+    border-radius: 5px;
     text-decoration: none;
     text-transform: uppercase;
-    padding: 1.6rem 4rem;
-    font-style: italic;
+    padding: 1rem 2.5rem;
+    cursor: pointer;
     background-color: $primary;
     transition: all .2s;
     backface-visibility: hidden;
+
+    &--big {
+        font-size: 2.4rem;
+        font-style: italic;
+        padding: 1.6rem 4rem;
+    }
 
     &--center {
         margin: 0 auto;
@@ -19,5 +26,14 @@
     &:hover {
         background-color: $primary-light;
         transform: scale(1.03);
+    }
+
+    &--red {
+        background-color: $red;
+        color: #eee;
+
+        &:hover {
+            background-color: $red-light;
+        }
     }
 }

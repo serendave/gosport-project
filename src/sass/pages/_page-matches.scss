@@ -1,0 +1,19 @@
+.page-matches {
+    min-height: 75vh;
+    padding: 5rem 0;
+    background-image: linear-gradient($darken-image, $darken-image),
+    url(../images/matches-background.jpg);
+    background-size: cover;
+    background-position: center;
+    color: $dark;
+
+    &__container {
+        background-color: #eee;
+        padding: 4rem;
+        border-radius: 5px;
+
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 4rem;
+    }
+}
