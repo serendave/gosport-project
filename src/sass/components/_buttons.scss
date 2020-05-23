@@ -36,4 +36,13 @@
             background-color: $red-light;
         }
     }
+
+    &--blue {
+        background-color: $blue;
+        color: #eee;
+
+        &:hover {
+            background-color: $blue-light;
+        }
+    }
 }

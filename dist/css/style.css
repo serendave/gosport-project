@@ -34,6 +34,10 @@ body {
   font-size: 2.8rem;
   color: #212121; }
 
+.heading-4 {
+  font-size: 2.4rem;
+  color: #212121; }
+
 .mb-sm {
   margin-bottom: 3rem !important; }
 
@@ -71,6 +75,11 @@ body {
     color: #eee; }
     .btn--red:hover {
       background-color: #dd302a; }
+  .btn--blue {
+    background-color: #169bd5;
+    color: #eee; }
+    .btn--blue:hover {
+      background-color: #2fb0e7; }
 
 .filters {
   border-radius: 5px;
@@ -313,6 +322,79 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 4rem; }
+
+.page-cabinet {
+  background-color: #fff;
+  padding: 8rem 0;
+  color: #212121; }
+  .page-cabinet__user-title {
+    margin-bottom: 2rem;
+    text-align: start;
+    font-size: 3rem;
+    text-transform: uppercase; }
+  .page-cabinet__user {
+    display: flex;
+    margin-bottom: 3.5rem; }
+    .page-cabinet__user-image {
+      width: 15rem;
+      height: 15rem;
+      display: block;
+      margin: 0 auto;
+      margin-bottom: 2rem;
+      border: 1px solid #ccc; }
+    .page-cabinet__user-profile {
+      margin-right: 3rem; }
+    .page-cabinet__user #btn-edit {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 1rem; }
+  .page-cabinet__row {
+    padding: 1.5rem; }
+    .page-cabinet__row:first-child {
+      margin-right: auto; }
+  .page-cabinet__info-container {
+    border: 1px solid #ccc;
+    flex-grow: 1;
+    display: flex; }
+  .page-cabinet__info {
+    font-size: 2rem; }
+    .page-cabinet__info span:first-child {
+      font-weight: 700; }
+    .page-cabinet__info:not(:last-child) {
+      margin-bottom: 2rem; }
+  .page-cabinet__balance-box {
+    padding: 1rem 0;
+    display: flex;
+    align-items: center; }
+    .page-cabinet__balance-box h4 {
+      margin-right: auto; }
+  .page-cabinet__balance-info {
+    display: flex;
+    align-items: center; }
+    .page-cabinet__balance-info > *:not(:last-child) {
+      margin-right: 2rem; }
+    .page-cabinet__balance-info h4 {
+      font-weight: 700; }
+  .page-cabinet__balance {
+    font-size: 2rem; }
+  .page-cabinet__bets-history {
+    padding: 2.5rem;
+    background-color: #eee;
+    border-radius: 5px;
+    overflow-y: scroll; }
+  .page-cabinet__bet {
+    padding: 2rem;
+    background-color: #fff;
+    font-size: 2rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    transition: all .2s;
+    display: flex;
+    justify-content: space-between; }
+    .page-cabinet__bet:not(:last-child) {
+      margin-bottom: 1.5rem; }
+    .page-cabinet__bet:hover {
+      transform: scale(1.02); }
 
 .header .nav {
   width: 100%;
