@@ -3,20 +3,6 @@
     display: flex;
     background-color: #eeeeee;
 
-    input {
-        padding: .5rem 1rem;
-        border-radius: 5px;
-        border: none;
-        font: inherit;
-        background-color: $light;
-        transition: all .2s;
-
-        &:focus {
-            background-color: #ccc;
-            outline: none;
-        }
-    }
-
     span {
         font-weight: 700;
         margin-right: 1.5rem;
@@ -24,7 +10,7 @@
 
     &__section {
         padding: 2rem;
-        flex-grow: .25;
+        flex-grow: 0.25;
 
         &:not(:last-child) {
             border-right: 2px solid #ccc;
@@ -59,7 +45,8 @@
         width: 100%;
     }
 
-    &__coefficients, &__dates {
+    &__coefficients,
+    &__dates {
         div {
             display: flex;
             justify-content: space-between;
