@@ -189,9 +189,18 @@ body {
   border-radius: 5px;
   padding: .5rem 1rem;
   background-color: #fff;
-  position: relative;
   outline: none;
   transition: all .2s; }
+  .input:focus {
+    box-shadow: 0 0 0 2px #ffc107; }
+  .input--valid {
+    box-shadow: 0 0 0 2px #269e16; }
+    .input--valid:focus {
+      box-shadow: 0 0 0 2px #269e16; }
+  .input--invalid {
+    box-shadow: 0 0 0 2px #d3413c; }
+    .input--invalid:focus {
+      box-shadow: 0 0 0 2px #dd302a; }
 
 .features {
   padding: 6rem 0;
@@ -484,6 +493,8 @@ body {
     .page-register__item label {
       font-size: 2rem;
       font-weight: 700; }
+    .page-register__item span {
+      color: #d3413c; }
 
 .header .nav {
   width: 100%;
