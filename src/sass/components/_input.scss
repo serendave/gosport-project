@@ -1,0 +1,22 @@
+.input {
+    border: none;
+    font: inherit;
+    border-radius: 5px;
+    padding: .5rem 1rem;
+    background-color: $light;
+    position: relative;
+    outline: none;
+    transition: all .2s;
+
+    // &::after {
+    //     content: "";
+    //     display: block;
+    //     position: absolute;
+    //     top: 0;
+    //     bottom: 0;
+    //     left: 0;
+    //     right: 0;
+    //     border-radius: 5px;
+    //     border: 2px solid $primary;
+    // }
+}
