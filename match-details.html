@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <title>Selected match</title>
+    <script src="../dist/vendors/jquery-3.5.1.min.js"></script>
+    <script>
+        $(function () {
+            $(".header").load("assets/header.html");
+            $(".footer").load("assets/footer.html");
+        });
+    </script>
+</head>
+<body>
+    <header class="header"></header>
+    
+    <main class="page-match-details">
+        <div class="row">
+            <div class="match-detail">
+                <figure class="match-detail__general-info">
+                    <div class="match-detail__team-logo match-detail__team-logo-1">
+                        <img src="dist/images/team-logo-1.png" alt="Team logo" class="match-detail__logo">
+                    </div>
+                    <div class="match-detail__info">
+                        <h2 class="heading-2 match-detail__name" id="match-name">
+                            Bate : Neman Gordno
+                        </h2>
+                        <h3 class="heading-3" id="match-time">14:55</h3>
+                        <h3 class="heading-3" id="match-date">21.09.2020</h3>
+                    </div>
+                    <div class="match-detail__team-logo match-detail__team-logo-2">
+                        <img src="dist/images/team-logo-2.jpg" alt="Team logo" class="match-detail__logo">
+                    </div>
+                </figure>
+
+                <figure class="match-detail__coefficients">
+                    <div class="match-detail__item match-detail__item--blue" 
+                        id="coefficient-1" 
+                        data-value="1 1.2">
+                        <span>1: </span><span>1.2</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--blue" 
+                        id="coefficient-2" 
+                        data-value="x 2.01">
+                        <span>x: </span><span>2.1</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--blue" 
+                        id="coefficient-3" 
+                        data-value="2 2.5">
+                        <span>2: </span><span>2.5</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--blue" 
+                        id="coefficient-4" 
+                        data-value="1x 1.04">
+                        <span>1x: </span><span>1.04</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--blue" 
+                        id="coefficient-5" 
+                        data-value="12 1.52">
+                        <span>12: </span><span>1.52</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--blue" 
+                        id="coefficient-6" 
+                        data-value="2x 2.1">
+                        <span>2x: </span><span>2.1</span>
+                    </div>
+                </figure>
+
+                <figure class="match-detail__math-prediction">
+                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-1">
+                        <span>1: </span><span>60%</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-2"">
+                        <span>x: </span><span>30%</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-3">
+                        <span>2: </span><span>10%</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-4">
+                        <span>1x: </span><span>90%</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-5">
+                        <span>12: </span><span>70%</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-6">
+                        <span>2x: </span><span>40%</span>
+                    </div>
+                </figure>
+
+                <figure class="match-detail__neuro-prediction">
+                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-1">
+                        <span>1: </span><span>60%</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-2"">
+                        <span>x: </span><span>30%</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-3">
+                        <span>2: </span><span>10%</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-4">
+                        <span>1x: </span><span>90%</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-5">
+                        <span>12: </span><span>70%</span>
+                    </div>
+                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-6">
+                        <span>2x: </span><span>40%</span>
+                    </div>
+                </figure>
+
+                <figure class="match-detail__team-statistics">
+                    <div class="statistics">
+                        <h3 class="heading-3 mb-sm" id="statistics-team-1">Team 1</h3>
+                        <div class="statictics__container">
+                            <div class="statistics__heading-row">
+                                <div class="statistics__heading">Team 1</div>
+                                <div class="statistics__heading">Score</div>
+                                <div class="statistics__heading">Team 2</div>
+                            </div>
+                            <div class="statistics__row">
+                                <div class="statistics__element">Bate</div>
+                                <div class="statistics__element statistics__element--win">2:1</div>
+                                <div class="statistics__element">Bate</div>
+                            </div>
+                            <div class="statistics__row">
+                                <div class="statistics__element">Bate</div>
+                                <div class="statistics__element statistics__element--win">1:0</div>
+                                <div class="statistics__element">Neman Gordno</div>
+                            </div>
+                            <div class="statistics__row">
+                                <div class="statistics__element">Bate</div>
+                                <div class="statistics__element statistics__element--lose">0:1</div>
+                                <div class="statistics__element">Neman Gordno</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="statistics">
+                        <h3 class="heading-3 mb-sm" id="statistics-team-2">Team 2</h3>
+                        <div class="statictics__container">
+                            <div class="statistics__heading-row">
+                                <div class="statistics__heading">Team 1</div>
+                                <div class="statistics__heading">Score</div>
+                                <div class="statistics__heading">Team 2</div>
+                            </div>
+                            <div class="statistics__row">
+                                <div class="statistics__element">Neman Gordno</div>
+                                <div class="statistics__element statistics__element--win">2:1</div>
+                                <div class="statistics__element">Bate</div>
+                            </div>
+                            <div class="statistics__row">
+                                <div class="statistics__element">Neman Gordno</div>
+                                <div class="statistics__element statistics__element--win">1:0</div>
+                                <div class="statistics__element">Bate</div>
+                            </div>
+                            <div class="statistics__row">
+                                <div class="statistics__element">Neman Gordno</div>
+                                <div class="statistics__element statistics__element--draw">0:0</div>
+                                <div class="statistics__element">Bate</div>
+                            </div>
+                        </div>
+                    </div>
+                </figure>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer"></footer>
+</body>
+</html>
