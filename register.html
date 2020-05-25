@@ -25,46 +25,105 @@
                 <div class="page-register__form-data">
                     <div class="page-register__row">
                         <div class="page-register__item">
-                            <label for="email">Email:</label>
-                            <input type="email" name="email" class="page-register__email input">
+                            <div>
+                                <label for="email">Email:</label>
+                                <span>*</span>
+                            </div>
+                            <input 
+                                type="email" 
+                                name="email" 
+                                class="page-register__email input"
+                                id="email"
+                            >
                         </div>
                         <div class="page-register__item">
-                            <label for="name">Name:</label>
-                            <input type="text" name="name" class="page-register__name input">
+                            <div>
+                                <label for="name">Name:</label>
+                                <span>*</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                name="name" 
+                                class="page-register__name input"
+                                id="name"
+                            >
                         </div>
                         <div class="page-register__item">
-                            <label for="surname">Surname:</label>
-                            <input type="text" name="surname" class="page-register__surname input">
+                            <div>
+                                <label for="surname">Surname:</label>
+                                <span>*</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                name="surname" 
+                                class="page-register__surname input"
+                                id="surname"
+                            >
                         </div>
                         <div class="page-register__item">
                             <label for="phone">Phone:</label>
-                            <input type="text" name="phone" class="page-register__phone input">
+                            <input 
+                                type="text" 
+                                name="phone" 
+                                class="page-register__phone input"
+                                id="phone"
+                            >
                         </div>
                     </div>
                     <div class="page-register__row">
                         <div class="page-register__item">
-                            <label for="password">Password:</label>
-                            <input type="text" name="password" class="page-register__password input">
+                            <div>
+                                <label for="password">Password:</label>
+                                <span>*</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                name="password" 
+                                class="page-register__password input"
+                                id="password"
+                            >
                         </div>
                         <div class="page-register__item">
-                            <label for="birthday-date">Birthday date:</label>
-                            <input type="date" name="birthday-date" class="page-register__birthday input">
+                            <div>
+                                <label for="birthday-date">Birthday date:</label>
+                            </div>
+                            <input 
+                                type="date" 
+                                name="birthday-date" 
+                                class="page-register__birthday input"
+                                id="birthday"
+                            >
                         </div>
                         <div class="page-register__item">
-                            <label for="country">Country:</label>
-                            <input type="text" name="country" class="page-register__country input">
+                            <div>
+                                <label for="country">Country:</label>
+                                <span>*</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                name="country" 
+                                class="page-register__country input"
+                                id="country"
+                            >
                         </div>
                         <div class="page-register__item">
                             <label for="city">City:</label>
-                            <input type="text" name="city" class="page-register__city input">
+                            <input 
+                                type="text" 
+                                name="city" 
+                                class="page-register__city input"
+                                id="city"
+                            >
                         </div>
                     </div>
                 </div>
-                <input type="submit" value="Sign up" class="btn center">
+                <input type="submit" value="Sign up" class="btn center" id="btn-submit">
             </form>
         </div> 
     </main>
 
     <footer class="footer"></footer>
 </body>
+
+<script src="src/js/page-register.js"></script>
 </html>
