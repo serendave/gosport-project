@@ -11,17 +11,7 @@
         padding-bottom: 1.5rem;
         position: relative;
 
-        &::before {
-            content: "";
-            width: 20rem;
-            height: 3px;
-            display: block;
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: $dark;
-        }
+        
     }
 
     &__content {

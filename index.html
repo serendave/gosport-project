@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,400&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="dist/css/style.css">
     <title>GoSport Website</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <link rel="stylesheet" href="dist/vendors/carousel.css">
     <script src="dist/vendors/jquery-3.5.1.min.js"></script>
+    <script src="dist/vendors/carousel.js"></script>
     <script>
         $(function () {
             console.log("Hello");
@@ -33,7 +36,7 @@
 
     <section class="features">
         <div class="features__heading">
-            <h2 class="heading-2">Why do people choose us?</h2>
+            <h2 class="heading-2 heading-2--line-bottom">Why do people choose us?</h2>
         </div>
 
         <div class="features__content">
@@ -91,8 +94,73 @@
     </section>
 
     <section class="matches">
-        <div class="matches__box">
-            matches
+        <h2 class="heading-2 heading-2--light heading-2--line-bottom mb-md text-center">Nearest matches</h2>
+        <div class="row">
+            <div class="matches__container carousel-container">
+                <figure class="matches__match carousel-slide-item">
+                    <div class="matches__team">
+                        <img src="dist/images/team-logo-1.png" alt="Team 1 logo" class="matches__team-logo">
+                        <p class="matches__team-name">Team 1</p>
+                    </div>
+                    <div class="matches__info">
+                        <img src="dist/images/match.jpg" alt="Match image" class="matches__image">
+                        <p class="matches__date">05.04.2020</p>
+                        <p class="matches__time">12:55</p>
+                    </div>
+                    <div class="matches__team">
+                        <img src="dist/images/team-logo-2.jpg" alt="Team 2 logo" class="matches__team-logo">
+                        <p class="matches__team-name">Team 2</p>
+                    </div>
+                </figure>
+                <figure class="matches__match carousel-slide-item">
+                    <div class="matches__team">
+                        <img src="dist/images/team-logo-1.png" alt="Team 1 logo" class="matches__team-logo">
+                        <p class="matches__team-name">Team 1</p>
+                    </div>
+                    <div class="matches__info">
+                        <img src="dist/images/match.jpg" alt="Match image" class="matches__image">
+                        <p class="matches__date">05.04.2020</p>
+                        <p class="matches__time">12:55</p>
+                    </div>
+                    <div class="matches__team">
+                        <img src="dist/images/team-logo-2.jpg" alt="Team 2 logo" class="matches__team-logo">
+                        <p class="matches__team-name">Team 2</p>
+                    </div>
+                </figure>
+                <figure class="matches__match carousel-slide-item">
+                    <div class="matches__team">
+                        <img src="dist/images/team-logo-1.png" alt="Team 1 logo" class="matches__team-logo">
+                        <p class="matches__team-name">Team 1</p>
+                    </div>
+                    <div class="matches__info">
+                        <img src="dist/images/match.jpg" alt="Match image" class="matches__image">
+                        <p class="matches__date">05.04.2020</p>
+                        <p class="matches__time">12:55</p>
+                    </div>
+                    <div class="matches__team">
+                        <img src="dist/images/team-logo-2.jpg" alt="Team 2 logo" class="matches__team-logo">
+                        <p class="matches__team-name">Team 2</p>
+                    </div>
+                </figure>
+                <figure class="matches__match carousel-slide-item">
+                    <div class="matches__team">
+                        <img src="dist/images/team-logo-1.png" alt="Team 1 logo" class="matches__team-logo">
+                        <p class="matches__team-name">Team 1</p>
+                    </div>
+                    <div class="matches__info">
+                        <img src="dist/images/match.jpg" alt="Match image" class="matches__image">
+                        <p class="matches__date">05.04.2020</p>
+                        <p class="matches__time">12:55</p>
+                    </div>
+                    <div class="matches__team">
+                        <img src="dist/images/team-logo-2.jpg" alt="Team 2 logo" class="matches__team-logo">
+                        <p class="matches__team-name">Team 2</p>
+                    </div>
+                </figure>
+            </div>
+            <a href="http://127.0.0.1:8080/matches.html" class="btn btn--big btn--center">
+                View matches
+            </a>
         </div>
     </section>
 
@@ -118,9 +186,9 @@
                 </h3>
 
                 <p class="premium-advertisement__text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
                 </p>
             </figure>
 
@@ -136,9 +204,9 @@
                 </h3>
 
                 <p class="premium-advertisement__text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
                 </p>
             </figure>
 
@@ -154,9 +222,9 @@
                 </h3>
 
                 <p class="premium-advertisement__text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
                 </p>
             </figure>
 
@@ -172,9 +240,9 @@
                 </h3>
 
                 <p class="premium-advertisement__text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
-                    et
-                    dolore magna aliqua.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore
+                    et dolore magna aliqua.
                 </p>
             </figure>
         </div>
@@ -182,4 +250,12 @@
 
     <footer class="footer"></footer>
 </body>
+
+<script>
+    const carouselDefault = new PureJSCarousel({
+        carousel: '.carousel-container',
+        slide: '.carousel-slide-item'
+    });
+</script>
+
 </html>

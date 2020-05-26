@@ -26,9 +26,21 @@ body {
 .heading-2 {
   font-size: 4.8rem;
   letter-spacing: 1px;
-  color: #212121; }
+  color: #212121;
+  padding-bottom: 2rem;
+  position: relative; }
   .heading-2--light {
     color: #fff; }
+  .heading-2--line-bottom::before {
+    content: "";
+    width: 20rem;
+    height: 3px;
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: currentColor; }
 
 .heading-3 {
   font-size: 2.8rem;
@@ -299,16 +311,6 @@ body {
     margin-bottom: 6rem;
     padding-bottom: 1.5rem;
     position: relative; }
-    .features__heading::before {
-      content: "";
-      width: 20rem;
-      height: 3px;
-      display: block;
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #212121; }
   .features__content {
     width: 80%;
     margin: 0 auto;
@@ -329,18 +331,45 @@ body {
     font-size: 1.8rem; }
 
 .matches {
-  height: 50rem;
   background-color: #2c3e50;
-  position: relative; }
-  .matches__box {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 3rem;
-    font-weight: 300;
-    color: #BDBDBD;
-    text-transform: capitalize; }
+  position: relative;
+  padding: 10rem 0; }
+  .matches__container {
+    margin-bottom: 6rem; }
+  .matches__match {
+    background-color: #eee;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s; }
+    .matches__match:not(:last-child) {
+      margin-right: 2rem; }
+    .matches__match > * {
+      padding: 2.5rem; }
+  .matches__team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; }
+    .matches__team-name {
+      font-size: 2.8rem;
+      font-weight: 700; }
+    .matches__team-logo {
+      max-width: 10rem;
+      max-height: 10rem;
+      margin-bottom: 2rem; }
+  .matches__info {
+    flex-grow: 2; }
+  .matches__image {
+    width: 20rem;
+    height: 10rem;
+    margin-bottom: 1.5rem; }
+  .matches__date {
+    font-size: 2rem; }
+  .matches__time {
+    font-size: 2.4rem; }
 
 .hero {
   width: 100%;
