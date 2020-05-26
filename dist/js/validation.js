@@ -131,3 +131,5 @@ const validate = (onDataValid, onDataInvalid) => {
         }
     });
 };
+
+export default validate;
