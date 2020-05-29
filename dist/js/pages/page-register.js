@@ -6,11 +6,10 @@ validate(() => {
         password: document.querySelector("#password").value,
         returnSecureToken: true
     }
-    const url = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=
-                AIzaSyDKyWcIFUiX3NbLyVDtK0nd8w_frBklP30`;
+    const url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDKyWcIFUiX3NbLyVDtK0nd8w_frBklP30";
 
     axios.post(url, authData)
-        .then(response => {
+        .then(response => { 
             localStorage.clear();
             localStorage.setItem("tokenId", response.data.idToken);
             localStorage.setItem("userId", response.data.localId);
