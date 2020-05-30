@@ -25,47 +25,62 @@
             <div class="filters">
                 <div class="filters__section filters__section--search">
                     <h3 class="filters__section-title">Search</h3>
-                    <input type="text" class="filters__search input" placeholder="Name of the team">
-                    <button class="btn">Search</button>
+                    <input type="text" class="filters__search input" placeholder="Match name" id="search">
                 </div>
                 <div class="filters__section">
                     <h3 class="filters__section-title">Coefficients</h3>
-                    <div class="filters__coefficients">
-                        <div>
-                            <span>from</span>
-                            <input 
-                                type="number" 
-                                class="filters__coefficient input" 
-                                placeholder="1.0"
-                                id="coefficient-from"
-                            >
+                    <div class="filters__coefficients-container">
+                        <div class="filters__coefficients-values">
+                            <div>
+                                <span>from</span>
+                                <input 
+                                    type="number" 
+                                    class="filters__coefficient input" 
+                                    placeholder="1.0"
+                                    id="coefficient-from"
+                                >
+                            </div>
+                            <div>
+                                <span>to</span>
+                                <input 
+                                    type="number" 
+                                    class="filters__coefficient input" 
+                                    placeholder="2.0"
+                                    id="coefficient-to"
+                                >
+                            </div>
                         </div>
-                        <div>
-                            <span>to</span>
-                            <input 
-                                type="number" 
-                                class="filters__coefficient input" 
-                                placeholder="2.0"
-                                id="coefficient-to"
-                            >
+                        <div class="filters__coefficients">
+                            <div>
+                                <span>1</span>
+                                <input type="checkbox" id="coefficient-1">
+                            </div>
+                            <div>
+                                <span>x</span>
+                                <input type="checkbox" id="coefficient-x">
+                            </div>
+                            <div>
+                                <span>2</span>
+                                <input type="checkbox" id="coefficient-2">
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="filters__section">
                     <h3 class="filters__section-title">Date</h3>
-                    <div class="filters__dates">
+                    <div class="filters__dates-container">
                         <div>
                             <span>from</span>
-                            <input type="date" class="filters__date input">
+                            <input type="date" class="filters__date input" id="date-from">
                         </div>
                         <div>
                             <span>to</span>
-                            <input type="date" class="filters__date input">
+                            <input type="date" class="filters__date input" id="date-to">
                         </div>
                     </div>
                 </div>
                 <div class="filters__section filters__section--buttons">
-                    <button class="btn btn--red mb-sm" id="filters-reset">Reset filters</button>
+                    <button class="btn btn--red" id="filters-reset">Reset filters</button>
                     <button class="btn" id="filters-apply">Apply filters</button>
                 </div>
             </div>
