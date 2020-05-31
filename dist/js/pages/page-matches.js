@@ -17,7 +17,16 @@ const matches = [
 // Displaying matches
 const matchesContainer = document.querySelector("#matches-container");
 
-function init() {
+async function init() {
+    // const url = "call to api";
+    // GET RESPONSE
+    // let response = await axios.get(url);
+
+    // console.log(response);
+    // TRANSFORM RESPONSE
+    // matches = await response.JSON();
+
+    // DISPLAY
     displayMatches(matches);
 }
 
@@ -57,7 +66,7 @@ function displayMatches(matches) {
                         <div class="match__coefficient match__coefficient--second">x: ${match.coefX}</div>
                         <div class="match__coefficient match__coefficient--third">2: ${match.coefSecond}</div>
                     </div>
-                    <button class="btn">Detailed View</button>
+                    <a class="btn" href="http://127.0.0.1:8080/match-details.html?id=${match.id}">Detailed View</a>
                 </div>
             </figure>
         `;

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="dist/css/style.css">
     <title>Selected match</title>
     <script src="../dist/vendors/jquery-3.5.1.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
         $(function () {
             $(".header").load("assets/header.html");
@@ -44,27 +45,27 @@
                         <span>1: </span><span>1.2</span>
                     </div>
                     <div class="match-detail__item match-detail__item--blue" 
-                        id="coefficient-2" 
+                        id="coefficient-x" 
                         data-value="x 2.01">
                         <span>x: </span><span>2.1</span>
                     </div>
                     <div class="match-detail__item match-detail__item--blue" 
-                        id="coefficient-3" 
+                        id="coefficient-2" 
                         data-value="2 2.5">
                         <span>2: </span><span>2.5</span>
                     </div>
                     <div class="match-detail__item match-detail__item--blue" 
-                        id="coefficient-4" 
+                        id="coefficient-1x" 
                         data-value="1x 1.04">
                         <span>1x: </span><span>1.04</span>
                     </div>
                     <div class="match-detail__item match-detail__item--blue" 
-                        id="coefficient-5" 
+                        id="coefficient-12" 
                         data-value="12 1.52">
                         <span>12: </span><span>1.52</span>
                     </div>
                     <div class="match-detail__item match-detail__item--blue" 
-                        id="coefficient-6" 
+                        id="coefficient-2x" 
                         data-value="2x 2.1">
                         <span>2x: </span><span>2.1</span>
                     </div>
@@ -74,19 +75,19 @@
                     <div class="match-detail__item match-detail__item--blue" id="math-prediction-1">
                         <span>1: </span><span>60%</span>
                     </div>
-                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-2"">
+                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-x">
                         <span>x: </span><span>30%</span>
                     </div>
-                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-3">
+                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-2">
                         <span>2: </span><span>10%</span>
                     </div>
-                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-4">
+                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-1x">
                         <span>1x: </span><span>90%</span>
                     </div>
-                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-5">
+                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-12">
                         <span>12: </span><span>70%</span>
                     </div>
-                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-6">
+                    <div class="match-detail__item match-detail__item--blue" id="math-prediction-2x">
                         <span>2x: </span><span>40%</span>
                     </div>
                 </figure>
@@ -95,26 +96,26 @@
                     <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-1">
                         <span>1: </span><span>60%</span>
                     </div>
-                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-2"">
+                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-x">
                         <span>x: </span><span>30%</span>
                     </div>
-                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-3">
+                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-2">
                         <span>2: </span><span>10%</span>
                     </div>
-                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-4">
+                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-1x">
                         <span>1x: </span><span>90%</span>
                     </div>
-                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-5">
+                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-12">
                         <span>12: </span><span>70%</span>
                     </div>
-                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-6">
+                    <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-2x">
                         <span>2x: </span><span>40%</span>
                     </div>
                 </figure>
 
                 <figure class="match-detail__team-statistics">
-                    <div class="statistics">
-                        <h3 class="heading-3 mb-sm" id="statistics-team-1">Team 1</h3>
+                    <div class="statistics" id="statistics-team-1">
+                        <h3 class="heading-3 mb-sm">Team 1</h3>
                         <div class="statictics__container">
                             <div class="statistics__heading-row">
                                 <div class="statistics__heading">Team 1</div>
@@ -138,8 +139,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="statistics">
-                        <h3 class="heading-3 mb-sm" id="statistics-team-2">Team 2</h3>
+                    <div class="statistics" id="statistics-team-2">
+                        <h3 class="heading-3 mb-sm">Team 2</h3>
                         <div class="statictics__container">
                             <div class="statistics__heading-row">
                                 <div class="statistics__heading">Team 1</div>
@@ -170,4 +171,6 @@
 
     <footer class="footer"></footer>
 </body>
+
+<script src="dist/js/pages/page-match-details.js"></script>
 </html>

@@ -8,6 +8,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="dist/css/style.css">
     <title>My Cabinet</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="../dist/vendors/jquery-3.5.1.min.js"></script>
     <script>
         $(function () {
@@ -22,7 +23,10 @@
 
     <main class="page-cabinet">
         <div class="row">
-            <h3 class="heading-3 page-cabinet__user-title">User Name</h3>
+            <div class="page-cabinet__heading">
+                <h3 class="heading-3 page-cabinet__user-title" id="title-user">User Name</h3>
+                <h3 class="heading-3 page-cabinet__premium-title page-cabinet__premium-title--disabled" id="title-premium">Premium</h3>
+            </div>
             <section class="page-cabinet__user">
                 <div class="page-cabinet__user-profile">
                     <img src="dist/images/user-profile.jpg" class="page-cabinet__user-image" alt="User image"></img>

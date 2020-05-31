@@ -1,19 +1,26 @@
 import validate from "./validation.js";
 
 validate(() => {
-    const authData = {
+
+    // Data for registration
+    const registerData = {
         email: document.querySelector("#email").value,
         password: document.querySelector("#password").value,
-        returnSecureToken: true
-    }
-    const url = "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDKyWcIFUiX3NbLyVDtK0nd8w_frBklP30";
+        dateOfBirthday: document.querySelector("#birthday").value,
+        userName: document.querySelector("#username").value,
+        realName: document.querySelector("#realname").value,
+        country: document.querySelector("#country").value,
+        city: document.querySelector("#city").value,
+        phoneNumber: document.querySelector("#phone").value
+    };
 
-    axios.post(url, authData)
+    const url = "api to backend";
+
+    axios.post(url, registerData)
         .then(response => { 
-            localStorage.clear();
-            localStorage.setItem("tokenId", response.data.idToken);
-            localStorage.setItem("userId", response.data.localId);
             console.log(response.data);
+            // localStorage.clear();
+            // localStorage.setItem("token", response.data.token);
 
             window.location.replace('http://127.0.0.1:8080/cabinet.html');
         })
