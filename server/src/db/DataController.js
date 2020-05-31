@@ -22,8 +22,8 @@ try {
     try {
       if(!(user && user.email && user.password)) throw new Error('Email and password are required.');
       
-      const loadedUser = await User.findOne({ email });
-      if(!(loadedUser && password === user.password)) {
+      const loadedUser = await User.findOne({ email: user.email });
+      if(!(loadedUser && user.password === loadedUser.password)) {
         throw new Error('Wrong email or password.');
       }
 
