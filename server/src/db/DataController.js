@@ -22,14 +22,14 @@ try {
     try {
       if(!(user && user.email && user.password)) throw new Error('Email and password are required.');
       
-      const user = await User.findOne({ email });
-      if(!(user && password === user.password)) {
+      const loadedUser = await User.findOne({ email });
+      if(!(loadedUser && password === user.password)) {
         throw new Error('Wrong email or password.');
       }
 
       const token = generateToken();
-      user.tokens.push(token);
-      await user.save();
+      loadedUser.tokens.push(token);
+      await loadedUser.save();
 
       return token;
     } catch(err) {
