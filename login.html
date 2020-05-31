@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <title>Sign in</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../dist/vendors/jquery-3.5.1.min.js"></script>
+    <script>
+        $(function () {
+            $(".header").load("assets/header.html");
+            $(".footer").load("assets/footer.html");
+        });
+    </script>
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="page-login">
+        <div class="page-login__container">
+            <h3 class="heading-3 mb-md">Sign in</h3>
+            <form action="#" class="page-login__form" method="POST">
+                <div class="page-login__items">
+                    <div class="page-login__item">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="page-login__email input" id="email">
+                    </div>
+                    <div class="page-login__item">
+                        <label for="email">Password</label>
+                        <input type="password" name="password" class="page-login__password input" id="password">
+                    </div>
+                </div>
+                <input type="submit" value="Sign in" class="btn mb-md center" id="btn-submit">
+            </form>
+            <div class="page-login__register">
+                <span>Don't have an account? </span>
+                <a href="http://127.0.0.1:8080/register.html" class="page-login__register-link">
+                    Sign up
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer"></footer>
+</body>
+
+<script src="dist/js/pages/page-login.js" type="module"></script>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <title>My Cabinet</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../dist/vendors/jquery-3.5.1.min.js"></script>
+    <script>
+        $(function () {
+            $(".header").load("assets/header.html");
+            $(".footer").load("assets/footer.html");
+        });
+    </script>
+</head>
+
+<body>
+    <header class="header"></header>
+
+    <main class="page-cabinet">
+        <div class="row">
+            <div class="page-cabinet__heading">
+                <h3 class="heading-3 page-cabinet__user-title" id="title-user">User Name</h3>
+                <h3 class="heading-3 page-cabinet__premium-title page-cabinet__premium-title--disabled" id="title-premium">Premium</h3>
+            </div>
+            <section class="page-cabinet__user">
+                <div class="page-cabinet__user-profile">
+                    <img src="dist/images/user-profile.jpg" class="page-cabinet__user-image" alt="User image"></img>
+                    <button class="btn btn--blue" id="btn-edit">Edit Profile</button>
+                    <button class="btn btn--blue" id="btn-upgrade">Upgrade to Premium</button>
+                </div>
+                <div class="page-cabinet__info-container">
+                    <div class="page-cabinet__row">
+                        <div class="page-cabinet__info">
+                            <span>Account ID: </span>
+                            <span id="account-id">7586785</span>
+                        </div>
+                        <div class="page-cabinet__info">
+                            <span>User Name: </span>
+                            <span id="username">JaskDK</span>
+                        </div>
+                        <div class="page-cabinet__info">
+                            <span>Real Name: </span>
+                            <span id="realname">David Backham</span>
+                        </div>
+                        <div class="page-cabinet__info">
+                            <span>Date of Birthday: </span>
+                            <span id="birthday-date">05.06.1981</span>
+                        </div>
+                        <div class="page-cabinet__info">
+                            <span>Phone number: </span>
+                            <span id="phone-number">+3806785494</span>
+                        </div>
+                    </div>
+                    <div class="page-cabinet__row">
+                        <div class="page-cabinet__info">
+                            <span>Email: </span>
+                            <span id="email">goft228@gmail.com</span>
+                        </div>
+                        <div class="page-cabinet__info">
+                            <span>Country: </span>
+                            <span id="country">Ukraine</span>
+                        </div>
+                        <div class="page-cabinet__info">
+                            <span>City: </span>
+                            <span id="city">Kyiv</span>
+                        </div>
+                        <div class="page-cabinet__info">
+                            <span>Date of registration: </span>
+                            <span id="registration-date">04.05.2020</span>
+                        </div>
+                        <div class="page-cabinet__info">
+                            <span>Bets done: </span>
+                            <span id="bets-done">3</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="page-cabinet__balance-box">
+                <h4 class="heading-4">Bets history:</h4>
+                <div class="page-cabinet__balance-info">
+                    <h4 class="heading-4">Balance</h4>
+                    <div class="page-cabinet__balance">
+                        <span id="balance">320.00</span>
+                        <span>UAH</span>
+                    </div>
+                    <button class="btn btn--blue" id="btn-replenish">Replenish balance</button>
+                </div>
+            </section>
+
+            <section class="page-cabinet__bets-history">
+                <div class="page-cabinet__bet">
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--name">
+                        Bate — Neman Gordno
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--coefficient">
+                        X (2.01)
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--bet">
+                        <span>50</span>
+                        <span>UAH</span>
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--date">
+                        <span>Date: </span>
+                        <span>07.05.2020</span>
+                    </div>
+                </div>
+                <div class="page-cabinet__bet">
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--name">
+                        Bate — Neman Gordno
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--coefficient">
+                        X (2.01)
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--bet">
+                        <span>50</span>
+                        <span>UAH</span>
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--date">
+                        <span>Date: </span>
+                        <span>07.05.2020</span>
+                    </div>
+                </div>
+                <div class="page-cabinet__bet">
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--name">
+                        Bate — Neman Gordno
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--coefficient">
+                        X (2.01)
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--bet">
+                        <span>50</span>
+                        <span>UAH</span>
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--date">
+                        <span>Date: </span>
+                        <span>07.05.2020</span>
+                    </div>
+                </div>
+                <div class="page-cabinet__bet">
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--name">
+                        Bate — Neman Gordno
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--coefficient">
+                        X (2.01)
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--bet">
+                        <span>50</span>
+                        <span>UAH</span>
+                    </div>
+                    <div class="page-cabinet__bet-info page-cabinet__bet-info--date">
+                        <span>Date: </span>
+                        <span>07.05.2020</span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="footer"></footer>
+</body>
+
+<script src="dist/js/pages/page-cabinet.js"></script>
+
+</html>

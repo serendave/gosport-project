@@ -1,0 +1,18 @@
+.page__access-denied {
+    padding: 3rem;
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+
+    &--container {
+        background-color: #eee;
+        padding: 3rem;
+        width: 80%;
+        border-radius: 5px;
+        opacity: 0.9;
+        text-align: center;
+        box-shadow: 0 2px 3px rgba(#000, 0.2);
+    }
+}

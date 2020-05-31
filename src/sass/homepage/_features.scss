@@ -1,0 +1,44 @@
+.features {
+    padding: 6rem 0;
+    background-color: $light;
+
+    &__heading {
+        text-align: center;
+        width: 80%;
+        margin: 0 auto;
+        text-align: center;
+        margin-bottom: 6rem;
+        padding-bottom: 1.5rem;
+        position: relative;
+
+        
+    }
+
+    &__content {
+        width: 80%;
+        margin: 0 auto;
+        height: min-content;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__item {
+        padding: 1rem;
+        text-align: center;
+    }
+
+    &__icon {
+        margin-bottom: 2rem;
+
+        & svg {
+            width: 6.4rem;
+            height: 6.4rem;
+            fill: $primary
+        }
+    }
+
+    &__text {
+        font-size: 1.8rem;
+    }
+}

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,400&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <title>Register</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="../dist/vendors/jquery-3.5.1.min.js"></script>
+    <script>
+        $(function () {
+            $(".header").load("assets/header.html");
+            $(".footer").load("assets/footer.html");
+        });
+    </script>
+</head>
+<body>
+    <header class="header"></header>
+
+    <main class="page-register">
+        <div class="page-register__container">
+            <h3 class="heading-3 mb-md-1 text-center">Sign up</h3>
+            <form action="#" class="page-register__form" method="POST">
+                <div class="page-register__form-data">
+                    <div class="page-register__row">
+                        <div class="page-register__item">
+                            <div>
+                                <label for="email">Email:</label>
+                                <span>*</span>
+                            </div>
+                            <input 
+                                type="email" 
+                                name="email" 
+                                class="page-register__email input"
+                                id="email"
+                            >
+                        </div>
+                        <div class="page-register__item">
+                            <div>
+                                <label for="name">Username:</label>
+                                <span>*</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                name="name" 
+                                class="page-register__name input"
+                                id="username"
+                            >
+                        </div>
+                        <div class="page-register__item">
+                            <div>
+                                <label for="surname">Real Name:</label>
+                                <span>*</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                name="surname" 
+                                class="page-register__surname input"
+                                id="realname"
+                            >
+                        </div>
+                        <div class="page-register__item">
+                            <label for="phone">Phone:</label>
+                            <input 
+                                type="text" 
+                                name="phone" 
+                                class="page-register__phone input"
+                                id="phone"
+                            >
+                        </div>
+                    </div>
+                    <div class="page-register__row">
+                        <div class="page-register__item">
+                            <div>
+                                <label for="password">Password:</label>
+                                <span>*</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                name="password" 
+                                class="page-register__password input"
+                                id="password"
+                            >
+                        </div>
+                        <div class="page-register__item">
+                            <div>
+                                <label for="birthday-date">Birthday date:</label>
+                            </div>
+                            <input 
+                                type="date" 
+                                name="birthday-date" 
+                                class="page-register__birthday input"
+                                id="birthday"
+                            >
+                        </div>
+                        <div class="page-register__item">
+                            <div>
+                                <label for="country">Country:</label>
+                                <span>*</span>
+                            </div>
+                            <input 
+                                type="text" 
+                                name="country" 
+                                class="page-register__country input"
+                                id="country"
+                            >
+                        </div>
+                        <div class="page-register__item">
+                            <label for="city">City:</label>
+                            <input 
+                                type="text" 
+                                name="city" 
+                                class="page-register__city input"
+                                id="city"
+                            >
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Sign up" class="btn center" id="btn-submit">
+            </form>
+        </div> 
+    </main>
+
+    <footer class="footer"></footer>
+</body>
+
+<script src="dist/js/pages/page-register.js" type="module"></script>
+</html>
