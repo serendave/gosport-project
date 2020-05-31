@@ -1,4 +1,4 @@
 *.log
 package-lock.json
 node_modules
-config/default.js
+server/config/default.js
