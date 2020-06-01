@@ -7,19 +7,25 @@
         margin-bottom: 6rem;
     }
 
+    &__item {
+        display: flex;
+
+        & > *:first-child {
+            margin-right: 2rem;
+        }
+    }
+
     &__match {
         background-color: #eee;
+        width: 50%;
         border-radius: 5px;
         display: flex;
         align-items: center;
         text-align: center;
         box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
         transition: all 0.3s;
+        color: $light;
         
-        &:not(:last-child) {
-            margin-right: 2rem;
-        }
-
         & > * {
             padding: 2.5rem;
         }

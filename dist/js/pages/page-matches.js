@@ -22,11 +22,11 @@ const matchesContainer = document.querySelector("#matches-container");
 
 async function init() {
     try {
-        // const url = "http://localhost:3000/api/get-current-matches";
+        const url = "http://localhost:3000/api/get-current-matches";
         // // GET RESPONSE
-        // let response = await axios.get(url);
+        let response = await axios.get(url);
     
-        // console.log(response);
+        console.log(response);
         // TRANSFORM RESPONSE
         // matches = await response.JSON();
     

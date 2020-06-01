@@ -1,10 +1,5 @@
 $(document).ready(() => {
 
-    const carousel = new PureJSCarousel({
-        carousel: ".carousel-container",
-        slide: ".carousel-slide-item"
-    });
-
     // Sticky navigation
     $(".features").waypoint(function (direction) {
         if (direction == "down") {
