@@ -1,7 +1,6 @@
 // VARIABLES
 
-$font: 'Roboto', sans-serif;
-
+$font: "Roboto", sans-serif;
 
 // BASE CONFIG
 
@@ -29,15 +28,31 @@ body {
     font-size: 4.8rem;
     letter-spacing: 1px;
     color: $dark;
+    padding-bottom: 2rem;
+    position: relative;
 
     &--light {
         color: $light;
     }
+
+    &--line-bottom  {
+        &::before {
+            content: "";
+            width: 20rem;
+            height: 3px;
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: currentColor;
+        }
+    }
 }
 
 .heading-3 {
-   font-size: 2.8rem;
-   color: $dark;
+    font-size: 2.8rem;
+    color: $dark;
 }
 
 .heading-4 {

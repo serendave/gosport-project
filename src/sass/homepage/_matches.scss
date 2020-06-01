@@ -1,13 +1,64 @@
 .matches {
-    height: 50rem;
     background-color: $background;
     position: relative;
+    padding: 10rem 0;
 
-    &__box {
-        @include center;
-        font-size: 3rem;
-        font-weight: 300;
-        color: $grey-light; 
-        text-transform: capitalize;
+    &__container {
+        margin-bottom: 6rem;
+    }
+
+    &__match {
+        background-color: #eee;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s;
+        
+        &:not(:last-child) {
+            margin-right: 2rem;
+        }
+
+        & > * {
+            padding: 2.5rem;
+        }
+    }
+
+    &__team {
+        // flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        &-name {
+            font-size: 2.8rem;
+            font-weight: 700;
+        }
+
+        &-logo {
+            max-width: 10rem;
+            max-height: 10rem;
+            margin-bottom: 2rem;
+        }
+    }
+
+    &__info {
+        flex-grow: 2;
+    }
+
+    &__image {
+        width: 20rem;
+        height: 10rem;
+        margin-bottom: 1.5rem;
+    }
+
+    &__date {
+        font-size: 2rem;
+    }
+
+    &__time {
+        font-size: 2.4rem;
     }
 }

@@ -2,8 +2,8 @@ const validate = (onDataValid, onDataInvalid) => {
     const submitButton = document.querySelector("#btn-submit");
     const email = document.querySelector("#email");
     const password = document.querySelector("#password");
-    const name = document.querySelector("#name");
-    const surname = document.querySelector("#surname");
+    const username = document.querySelector("#username");
+    const realname = document.querySelector("#realname");
     const country = document.querySelector("#country");
 
     const emailPattern = /[\w\d-_]+@\w+.(com|net|ua)/;
@@ -35,26 +35,26 @@ const validate = (onDataValid, onDataInvalid) => {
         });
     }
 
-    if (name) {
-        name.addEventListener("keyup", () => {
-            if (name.value !== "") {
-                name.classList.add("input--valid");
-                name.classList.remove("input--invalid");
+    if (username) {
+        username.addEventListener("keyup", () => {
+            if (username.value !== "") {
+                username.classList.add("input--valid");
+                username.classList.remove("input--invalid");
                 valid = true;
             } else {
-                name.classList.remove("input--valid");
+                username.classList.remove("input--valid");
             }
         });
     }
 
-    if (surname) {
-        surname.addEventListener("keyup", () => {
-            if (surname.value !== "") {
-                surname.classList.add("input--valid");
-                surname.classList.remove("input--invalid");
+    if (realname) {
+        realname.addEventListener("keyup", () => {
+            if (realname.value !== "") {
+                realname.classList.add("input--valid");
+                realname.classList.remove("input--invalid");
                 valid = true;
             } else {
-                surname.classList.remove("input--valid");
+                realname.classList.remove("input--valid");
             }
         });
     }
@@ -94,23 +94,23 @@ const validate = (onDataValid, onDataInvalid) => {
             }
         }
 
-        if (name) {
-            if (name.value === "") {
-                name.classList.add("input--invalid");
+        if (username) {
+            if (username.value === "") {
+                username.classList.add("input--invalid");
                 valid = false;
             } else {
-                name.classList.remove("input--invalid");
-                name.classList.add("input--valid");
+                username.classList.remove("input--invalid");
+                username.classList.add("input--valid");
             }
         }
 
-        if (surname) {
-            if (surname.value === "") {
-                surname.classList.add("input--invalid");
+        if (realname) {
+            if (realname.value === "") {
+                realname.classList.add("input--invalid");
                 valid = false;
             } else {
-                surname.classList.remove("input--invalid");
-                surname.classList.add("input--valid");
+                realname.classList.remove("input--invalid");
+                realname.classList.add("input--valid");
             }
         }
 
@@ -131,3 +131,5 @@ const validate = (onDataValid, onDataInvalid) => {
         }
     });
 };
+
+export default validate;

@@ -16,4 +16,9 @@
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 4rem;
     }
+
+    &__error {
+        text-align: center;
+        font-size: 2rem;
+    }
 }

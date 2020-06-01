@@ -14,11 +14,13 @@
         border-bottom: 1px solid #ccc;
 
         div {
+            width: 100%;
             margin-bottom: 1rem;
             padding: 1rem;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            text-align: center;
         }
     }
 

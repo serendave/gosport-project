@@ -3,11 +3,27 @@
     padding: 8rem 0;
     color: $dark;
 
-    &__user-title {
+    &__heading {
+        display: flex;
+        justify-content: space-between;
         margin-bottom: 2rem;
-        text-align: start;
         font-size: 3rem;
         text-transform: uppercase;
+        text-align: start;
+    }
+
+    &__premium-title {
+        color: $primary;
+
+        &--disabled {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        &--active {
+            opacity: 1;
+            visibility: visible;
+        }
     }
 
     &__user {
