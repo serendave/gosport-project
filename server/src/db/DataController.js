@@ -14,7 +14,7 @@ try {
 
 
   mongoose.connect(cfg.mongodb.connectionURI, {useNewUrlParser: true}).then(
-    () => { logger.info('Connected to mongoDB successfully'); },
+    () => { logger.info('Connected to mongoDB successfully');calculatePredicts(); },
     err => { logger.error('Failed to connect to mongoDB: ', err) }
   );
 
@@ -55,16 +55,84 @@ try {
     }
   }
 
+  async function calculatePredicts() {
+    const matches = await Match.find();
+    for(let match of matches) {
+      await calculatePredictsForMatch(match);
+      logger.info("Saved coefficients: " + match.coefficients);
+    }
+  }
+
+  async function calculatePredictsForMatch(match) {
+    let countWinsTeam1 = match.team1.wins;
+    let countLoseTeam1 = match.team1.loses;
+    let countDrawTeam1 = match.team1.draws;
+    let countWinsTeam2 = match.team2.wins;
+    let countLoseTeam2 = match.team2.loses;
+    let countDrawTeam2 = match.team2.draws;
+
+    let countMatches = 7;
+    let winRateTeam1 = (countWinsTeam1 * 100) / countMatches;
+    let loseRateTeam1 = countLoseTeam1 * 100 / countMatches;
+    let drawRateTeam1 = (countDrawTeam1 * 100) / countMatches;
+    let winRateTeam2 = (countWinsTeam2 * 100) / countMatches;
+    let loseRateTeam2 = countLoseTeam2 * 100 / countMatches;
+    let drawRateTeam2 = (countDrawTeam2 * 100) / countMatches;
+    let marzha = 10;
+    let totalPercent = winRateTeam1 + winRateTeam2 + drawRateTeam1 + drawRateTeam2;
+    let totalDrawPercent = drawRateTeam1 + drawRateTeam2;
+    let totalDrawRecountPercent = (totalDrawPercent * 100) / totalPercent;
+    let koefx = 100 / (totalDrawRecountPercent);
+    let marzhax = ((koefx - 1) * marzha) / 100;
+    match.coefficients['x'] = koefx-marzhax;
+    
+    let totalWinTeam1RecountPercent = (winRateTeam1 * 100) / totalPercent;
+    let koef1 = 100 / totalWinTeam1RecountPercent;
+    let marzha1 = ((koef1 - 1) * marzha) / 100;
+    match.coefficients['1'] = koef1 - marzha1;
+    
+    let totalWinTeam2RecountPercent = 100 - totalDrawRecountPercent - totalWinTeam1RecountPercent;
+    let koef2 = 100 / totalWinTeam2RecountPercent;
+    let marzha2 = ((koef2 - 1) * marzha) / 100;
+    match.coefficients['2'] = koef2 - marzha2;
+    
+    let koef1x = 100 / (totalDrawRecountPercent + totalWinTeam1RecountPercent);
+    let marzha1x = ((koef1x - 1) * marzha) / 100;
+    match.coefficients['1x'] = koef1x - marzha1x;
+    
+    let koef2x = 100 / (totalDrawRecountPercent + totalWinTeam2RecountPercent);
+    let marzha2x = ((koef2x - 1) * marzha) / 100;
+    match.coefficients['2x'] = koef2x - marzha2x;
+    
+    let koef12 = 100 / (totalWinTeam2RecountPercent + totalWinTeam1RecountPercent);
+    let marzha12 = ((koef12 - 1) * marzha) / 100;
+    match.coefficients['12'] = koef12 - marzha12;
+    
+    match.mathPredicts['1'] = totalWinTeam1RecountPercent;
+    match.mathPredicts['2'] = totalWinTeam2RecountPercent;
+    match.mathPredicts['x'] = totalDrawRecountPercent;
+    match.mathPredicts['1x'] = totalWinTeam1RecountPercent + totalDrawRecountPercent;
+    match.mathPredicts['2x'] = totalWinTeam2RecountPercent + totalDrawRecountPercent;
+    match.mathPredicts['12'] = totalWinTeam2RecountPercent + totalWinTeam1RecountPercent;
+    return await match.save();
+  }
+
   async function calculateTeamStats() {
     const teams = await Team.find();
     logger.info("Starting to calculate wins for " + teams.length + " teams.");
     for(let team of teams) {
       const wonMatches = await Match.find({ winner: team._id.toString() });
       const draw = await Match.find({ winner: "nobody", $or: [{ team1: team._id} , { team2: team._id }] });
-      const loses = await Match.find({ $or: [{ team1: team._id }, { team2: team._id }], winner: { $ne: team._id } });
+      const teamMatches = await Match.find({ $or: [{ team1: team._id }, { team2: team._id }]});
+      let loses = 0;
+      for(let match of teamMatches) {
+        if(match.winner && match.winner !== "" && match.winner !== "nobody" && match.winner !== team._id.toString()) {
+          loses++;
+        }
+      }
       team.wins = wonMatches.length;
       team.draws = draw.length;
-      team.loses = loses.length;
+      team.loses = loses;
       logger.info('Saving ' + team.loses + ' loses for ' + team._id, ' team');
       await team.save();
     }
