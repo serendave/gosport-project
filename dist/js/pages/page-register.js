@@ -1,5 +1,5 @@
-import validate from "./validation.js";
-import createPopup from "./popup.js";
+import validate from "../utils/validation.js";
+import createPopup from "../utils/popup.js";
 
 validate(() => {
 
@@ -34,6 +34,5 @@ validate(() => {
             console.log(error);
         });
 }, () => {
-    const content = document.querySelector("body")
-    createPopup("Invalid data. Please, fill in all the necessary fields", content);
+    createPopup("Invalid data. Please, fill in all the necessary fields");
 });

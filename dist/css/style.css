@@ -138,6 +138,32 @@ body {
       margin-right: 2rem;
       border: 1px solid #ccc; }
 
+.page__up-btn {
+  width: 5rem;
+  height: 5rem;
+  position: fixed;
+  color: #fff;
+  bottom: 3rem;
+  right: 3rem;
+  border-radius: 50%;
+  background-color: #ffc107;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  transition: all .2s;
+  visibility: hidden;
+  opacity: 0;
+  z-index: 200; }
+  .page__up-btn--visible {
+    visibility: visible;
+    opacity: 1; }
+  .page__up-btn:hover {
+    transform: scale(1.03); }
+  .page__up-btn--content {
+    transform: rotate(-90deg);
+    font-size: 3rem;
+    font-weight: 700; }
+
 .btn {
   display: block;
   width: max-content;
@@ -714,34 +740,52 @@ body {
   background-size: cover;
   background-position: center; }
 
-.header .nav {
-  width: 100%;
-  height: 10rem;
-  padding: 2.4rem;
-  background-color: #212121;
-  color: #fff;
-  list-style: none;
-  display: flex; }
-  .header .nav__item {
-    display: inline-block; }
-  .header .nav__item:first-child {
-    margin-left: auto; }
-  .header .nav__item:not(:first-child) {
-    margin-left: 2.4rem; }
-  .header .nav__link {
-    display: inline-block;
-    font-size: 2.1rem;
-    text-transform: uppercase;
-    text-decoration: none;
+.header {
+  transition: all .4s; }
+  .header nav {
+    width: 100%;
+    height: 10rem;
+    padding: 2.4rem;
+    background-color: #212121;
+    display: flex;
+    justify-content: center;
+    align-items: center; }
+  .header .nav {
     color: #fff;
-    padding: .8rem 1.6rem;
-    transition: all .2s; }
-    .header .nav__link--active {
-      border-bottom: 2px solid #ffc107;
-      color: #ffc107; }
-    .header .nav__link:hover {
-      border-bottom: 2px solid #ffc107;
-      color: #ffc107; }
+    list-style: none;
+    height: 100%;
+    display: flex; }
+    .header .nav__item {
+      display: inline-block; }
+    .header .nav__item:first-child {
+      margin-left: auto; }
+    .header .nav__item:not(:first-child) {
+      margin-left: 2.4rem; }
+    .header .nav__link {
+      display: inline-block;
+      font-size: 2.1rem;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: #fff;
+      padding: .8rem 1.6rem;
+      transition: all .2s; }
+      .header .nav__link--active {
+        border-bottom: 2px solid #ffc107;
+        color: #ffc107; }
+      .header .nav__link:hover {
+        border-bottom: 2px solid #ffc107;
+        color: #ffc107; }
+    .header .nav__image-box {
+      margin-right: auto; }
+    .header .nav__image {
+      width: 12rem;
+      height: 11rem; }
+  .header--sticky {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000; }
 
 .footer {
   padding: 4rem 15rem;

@@ -1,5 +1,5 @@
 import Match from "../classes/Match.js";
-import createPopup from "./popup.js";
+import createPopup from "../utils/popup.js";
 
 const token = localStorage.getItem("token");
 

@@ -79,3 +79,36 @@
         }
     }
 }
+
+.page__up-btn {
+    width: 5rem;
+    height: 5rem;
+    position: fixed;
+    color: $light;
+    bottom: 3rem;
+    right: 3rem;
+    border-radius: 50%;
+    background-color: $primary;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    transition: all .2s;
+    visibility: hidden;
+    opacity: 0;
+    z-index: 200;
+
+    &--visible {
+        visibility: visible;
+        opacity: 1;
+    }
+
+    &:hover {
+        transform: scale(1.03);
+    }
+
+    &--content {
+        transform: rotate(-90deg);
+        font-size: 3rem;
+        font-weight: 700;
+    }
+}

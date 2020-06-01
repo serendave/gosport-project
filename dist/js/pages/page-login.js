@@ -1,4 +1,5 @@
-import validate from "./validation.js";
+import validate from "../utils/validation.js";
+import createPopup from "../utils/popup.js"
 
 validate(() => {
     const loginData = {
@@ -22,5 +23,5 @@ validate(() => {
             console.log(error);
         })
 }, () => {
-    createPopup("Invalid data. Please, fill in all the necessary fields", content);
+    createPopup("Invalid data. Please, fill in all the necessary fields");
 });

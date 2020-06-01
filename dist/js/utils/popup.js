@@ -1,4 +1,4 @@
-const createPopup = (text, element, extraLink, linkText) => {
+const createPopup = (text, element = document.querySelector("body"), extraLink, linkText) => {
 
     const modal = document.createElement("div");
     modal.className = "page__modal";
