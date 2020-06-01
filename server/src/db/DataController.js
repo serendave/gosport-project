@@ -225,7 +225,8 @@ try {
         mask.neuralPredicts = false;
       }
 
-      const match = await Match.findById({ _id: matchId }, mask).lean();
+      const match = await Match.findById({ _id: matchId }, mask)
+        .populate('team1').populate('team2').lean();
       if(!match) {
         throw new Error('Wrong match id.');
       }
@@ -237,7 +238,7 @@ try {
 
   async function getTeamStats(token, teamId) {
     try {
-      if(!token || !matchId) throw new Error('Token and matchId are required.');
+      if(!token || !teamId) throw new Error('Token and matchId are required.');
       
       const user = await User.findOne({ tokens: token }, { _id: true, isPremium: true }).lean();
       if (!user) {

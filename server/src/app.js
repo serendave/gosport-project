@@ -27,8 +27,8 @@ try {
   });
 
   app.post('/api/login', async (req, res) => {
-    const { email, password } = req.body;
-    const token = await dataController.login(email, password);
+    const user = req.body;
+    const token = await dataController.login(user);
     return res.json({ token });
   });
 
