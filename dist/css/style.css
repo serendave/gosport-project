@@ -557,11 +557,13 @@ body {
 
 .page-matches {
   min-height: 75vh;
-  padding: 5rem 0;
+  padding: 1rem 0;
   background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(../images/matches-background.jpg);
   background-size: cover;
   background-position: center;
   color: #212121; }
+  .page-matches .row {
+    margin-bottom: 2rem; }
   .page-matches__container {
     background-color: #eee;
     padding: 4rem;

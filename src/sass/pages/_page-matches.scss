@@ -1,11 +1,15 @@
 .page-matches {
     min-height: 75vh;
-    padding: 5rem 0;
+    padding: 1rem 0;
     background-image: linear-gradient($darken-image, $darken-image),
     url(../images/matches-background.jpg);
     background-size: cover;
     background-position: center;
     color: $dark;
+
+    .row {
+        margin-bottom: 2rem;
+    }
 
     &__container {
         background-color: #eee;
