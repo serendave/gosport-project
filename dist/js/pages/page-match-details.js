@@ -1,6 +1,59 @@
+import createPopup from "../utils/popup.js";
+
 let matchId;
 let chosenCoefficient;
-let teamName;
+let teamName = "Bate — Neman Gordno";
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function displayBetModal(element) {
+    chosenCoefficient = element.dataset.value;
+    const [coefficient, coefValue] = chosenCoefficient.split(" ");
+
+    const modalMakeBet = document.querySelector("#modal-make-bet");
+    const betInfo = document.querySelector("#modal-make-bet .page__modal-bet-info");
+    betInfo.children[0].textContent = teamName;
+    betInfo.children[0].style.display = "block";
+    betInfo.children[2].textContent = `${coefficient} (${coefValue})`;
+
+    modalMakeBet.classList.remove("page__modal--hidden");
+
+    const modalClose = document.querySelector("#modal-make-bet .page__modal-content--close");
+    modalClose.addEventListener("click", e => {
+        modalMakeBet.classList.add("page__modal--hidden");
+    });
+
+    const makeBetButton = document.querySelector("#btn-make-bet");
+    makeBetButton.addEventListener("click", e => {
+        modalMakeBet.classList.add("page__modal--hidden");
+
+        // const url = "";
+        // axios.post()
+        //     .then(response => {
+        //         if (document.querySelectorAll(".page__modal").length < 2) {
+        //             createPopup(
+        //                 "You made bet! Go to your cabinet to chosen bets", 
+        //                 "", 
+        //                 "http://127.0.0.1:8080/cabinet.html", 
+        //                 "Go to my cabinet"
+        //             );
+        //         }
+        //     })
+        //     .catch(error => {
+        //         if (document.querySelectorAll(".page__modal").length < 2) {
+        //             createPopup("Some error occured. Please, try again");
+        //         }
+        //     }); 
+    });
+}
 
 window.onload = () => {
 
@@ -10,18 +63,7 @@ window.onload = () => {
     if (!token) {
 
         // Parse the URL parameter
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-
         matchId = getParameterByName("id");
-        console.log(matchId);
 
         // Get the match and display it
         const url = "api to backend";
@@ -40,17 +82,9 @@ window.onload = () => {
 
         coefficients.forEach(coefficient => {
             coefficient.addEventListener("click", e => {
-                const modalMakeBet = document.querySelector("#modal-make-bet");
-                modalMakeBet.classList.remove("page__modal--hidden");
-
-                const modalClose = document.querySelector("#modal-make-bet .page__modal-content--close");
-                modalClose.addEventListener("click", e => {
-                    modalMakeBet.classList.add("page__modal--hidden");
-                });
+                displayBetModal(e.target)
             });
         });
-
-
 
         // document.querySelector("#math-prediction-1 span:last-child").textContent = response.data;
         // document.querySelector("#math-prediction-x span:last-child").textContent = response.data;

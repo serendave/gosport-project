@@ -1,7 +1,11 @@
 const createPopup = (text, element = document.querySelector("body"), extraLink, linkText) => {
 
+    if (element === "") element = document.querySelector("body");
+
     const modal = document.createElement("div");
-    modal.className = "page__modal";
+    modal.className = "page__modal animate__animated animate__fadeIn";
+    modal.style.animationDuration = "0.2s";
+    modal.style.zIndex = "2000";
     const content = document.createElement("div");
     content.className = "page__modal-content";
     const closeTag = document.createElement("div");

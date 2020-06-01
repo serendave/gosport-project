@@ -6,6 +6,10 @@ $font: "Roboto", sans-serif;
 
 html {
     font-size: 62.5%;
+
+    @media (max-width: 1000px) {
+        font-size: 50%;
+    }
 }
 
 body {

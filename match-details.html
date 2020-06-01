@@ -7,6 +7,7 @@
     rel="stylesheet">
     <link rel="stylesheet" href="dist/css/style.css">
     <title>Selected match</title>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
     <script src="../dist/vendors/jquery-3.5.1.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script>
@@ -27,7 +28,7 @@
                         <img src="dist/images/team-logo-1.png" alt="Team logo" class="match-detail__logo">
                     </div>
                     <div class="match-detail__info">
-                        <h2 class="heading-2 match-detail__name" id="match-name">
+                        <h2 class="heading-2 match-detail__name text-center" id="match-name">
                             Bate : Neman Gordno
                         </h2>
                         <h3 class="heading-3" id="match-time">14:55</h3>
@@ -113,9 +114,10 @@
                     </div>
                 </figure>
 
+                <h3 class="heading-3">Team statistics</h3>
                 <figure class="match-detail__team-statistics">
                     <div class="statistics" id="statistics-team-1">
-                        <h3 class="heading-3 mb-sm">Team 1</h3>
+                        <h3 class="heading-3 mb-sm text-center">Team 1</h3>
                         <div class="statictics__container">
                             <div class="statistics__heading-row">
                                 <div class="statistics__heading">Team 1</div>
@@ -140,7 +142,7 @@
                         </div>
                     </div>
                     <div class="statistics" id="statistics-team-2">
-                        <h3 class="heading-3 mb-sm">Team 2</h3>
+                        <h3 class="heading-3 mb-sm text-center">Team 2</h3>
                         <div class="statictics__container">
                             <div class="statistics__heading-row">
                                 <div class="statistics__heading">Team 1</div>
@@ -175,25 +177,25 @@
         <div class="page__modal-content">
             <div class="page__modal-content--close">+</div>
             <div>You would like to bet:</div>
-            <div>
+            <div class="page__modal-bet-info" style="font-weight: 700;">
                 <span>Teamname</span>
                 <span>| Result: </span>
                 <span>X (2.01)</span>
             </div>
-            <div>Your bet:</div>
+            <div>Enter the sum of bet:</div>
             <div class="page__modal-balance">
                 <span>Balance:</span> 
                 <span>320 UAH</span> 
             </div>            
             <div class="page__modal-bet">
                 <input type="text" class="input" id="bet-value">
-                <button class="btn">Make a bet</button>
+                <button class="btn" id="btn-make-bet">Make a bet</button>
             </div>
         </div>
     </div>
 </body>
 
-<script src="dist/js/pages/page-match-details.js"></script>
+<script src="dist/js/pages/page-match-details.js" type="module"></script>
 <script src="dist/vendors/jquery.waypoints.min.js"></script>
 <script src="dist/js/utils/nav.js"></script>
 

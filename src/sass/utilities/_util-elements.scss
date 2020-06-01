@@ -112,3 +112,8 @@
         font-weight: 700;
     }
 }
+
+.animate__animated {
+    animation-fill-mode: none;
+    -webkit-animation-fill-mode: none;
+}

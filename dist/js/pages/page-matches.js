@@ -22,8 +22,8 @@ const matchesContainer = document.querySelector("#matches-container");
 
 async function init() {
     try {
-        // const url = "http://localhost:3000/api/get-current-matchess";
-        // // // GET RESPONSE
+        // const url = "http://localhost:3000/api/get-current-matches";
+        // // GET RESPONSE
         // let response = await axios.get(url);
     
         // console.log(response);
@@ -44,7 +44,7 @@ function displayMatches(matches) {
     if (matches.length > 0) {
         matches.forEach(match => {
             const matchContent = `
-                <figure class="match">
+                <figure class="match animate__animated animate__zoomIn animate__faster">
                     <div class="match__general-info">
                         <div>
                             <div class="match__team match__first-team">
