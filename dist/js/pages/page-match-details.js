@@ -1,5 +1,6 @@
 let matchId;
 let chosenCoefficient;
+let teamName;
 
 window.onload = () => {
 
@@ -27,72 +28,88 @@ window.onload = () => {
 
         // axios.post(url, token)
         //     .then(response => {
-                // DISPLAYING COEFFICIENTS
-                // document.querySelector("#coefficient-1 span:last-child").textContent = response.data;
-                // document.querySelector("#coefficient-x span:last-child").textContent = response.data;
-                // document.querySelector("#coefficient-2 span:last-child").textContent = response.data;
-                // document.querySelector("#coefficient-1x span:last-child").textContent = response.data;
-                // document.querySelector("#coefficient-12 span:last-child").textContent = response.data;
-                // document.querySelector("#coefficient-2x span:last-child").textContent = response.data;
+        // DISPLAYING COEFFICIENTS
+        // document.querySelector("#coefficient-1 span:last-child").textContent = response.data;
+        // document.querySelector("#coefficient-x span:last-child").textContent = response.data;
+        // document.querySelector("#coefficient-2 span:last-child").textContent = response.data;
+        // document.querySelector("#coefficient-1x span:last-child").textContent = response.data;
+        // document.querySelector("#coefficient-12 span:last-child").textContent = response.data;
+        // document.querySelector("#coefficient-2x span:last-child").textContent = response.data;
+        const coefficients = Array.from(
+            document.querySelectorAll(".match-detail__coefficients .match-detail__item"));
 
-                // document.querySelector("#math-prediction-1 span:last-child").textContent = response.data;
-                // document.querySelector("#math-prediction-x span:last-child").textContent = response.data;
-                // document.querySelector("#math-prediction-2 span:last-child").textContent = response.data;
-                // document.querySelector("#math-prediction-1x span:last-child").textContent = response.data;
-                // document.querySelector("#math-prediction-12 span:last-child").textContent = response.data;
-                // document.querySelector("#math-prediction-2x span:last-child").textContent = response.data;
+        coefficients.forEach(coefficient => {
+            coefficient.addEventListener("click", e => {
+                const modalMakeBet = document.querySelector("#modal-make-bet");
+                modalMakeBet.classList.remove("page__modal--hidden");
 
-                // document.querySelector("#neuro-prediction-1 span:last-child").textContent = response.data;
-                // document.querySelector("#neuro-prediction-x span:last-child").textContent = response.data;
-                // document.querySelector("#neuro-prediction-2 span:last-child").textContent = response.data;
-                // document.querySelector("#neuro-prediction-1x span:last-child").textContent = response.data;
-                // document.querySelector("#neuro-prediction-12 span:last-child").textContent = response.data;
-                // document.querySelector("#neuro-prediction-2x span:last-child").textContent = response.data;
+                const modalClose = document.querySelector("#modal-make-bet .page__modal-content--close");
+                modalClose.addEventListener("click", e => {
+                    modalMakeBet.classList.add("page__modal--hidden");
+                });
+            });
+        });
 
-                // DISPLAYING DATE
-                // document.querySelector("#match-date").textContent = response.data;
-                // document.querySelector("#match-time").textContent = response.data;
 
-                // DISPLAYING STATS
 
-                // const urlDetailsFirstTeam = "api to backend";
-                // const firstTeamId = response.data.teamId
-                
-                // axios.post(urlDetailsFirstTeam, {
-                //     token,
-                //     firstTeamId
-                // })
-                // .then(response => {
-                //     const statsContainer = document.querySelector("#statistics-team-1 .statistics__container");
+        // document.querySelector("#math-prediction-1 span:last-child").textContent = response.data;
+        // document.querySelector("#math-prediction-x span:last-child").textContent = response.data;
+        // document.querySelector("#math-prediction-2 span:last-child").textContent = response.data;
+        // document.querySelector("#math-prediction-1x span:last-child").textContent = response.data;
+        // document.querySelector("#math-prediction-12 span:last-child").textContent = response.data;
+        // document.querySelector("#math-prediction-2x span:last-child").textContent = response.data;
 
-                //     response.data.matches.forEach(match => {
-                //         const matchInfo = `
-                //             <div class="statistics__row">
-                //                 <div class="statistics__element">${match.team1.teamName}</div>
-                //                 <div class="statistics__element statistics__element--win">${match.goalsTeam1}:${match.goalsTeam2}</div>
-                //                 <div class="statistics__element">${match.team2.teamName}</div>
-                //             </div>
-                //         `;
+        // document.querySelector("#neuro-prediction-1 span:last-child").textContent = response.data;
+        // document.querySelector("#neuro-prediction-x span:last-child").textContent = response.data;
+        // document.querySelector("#neuro-prediction-2 span:last-child").textContent = response.data;
+        // document.querySelector("#neuro-prediction-1x span:last-child").textContent = response.data;
+        // document.querySelector("#neuro-prediction-12 span:last-child").textContent = response.data;
+        // document.querySelector("#neuro-prediction-2x span:last-child").textContent = response.data;
 
-                //         statsContainer.insertAdjacentHTML("beforeend", matchInfo);
-                //     });
-                // })
-                // .catch(error => {
-                //     console.log(error);
-                // })
+        // DISPLAYING DATE
+        // document.querySelector("#match-date").textContent = response.data;
+        // document.querySelector("#match-time").textContent = response.data;
 
-                // const urlDetailsSecondTeam = "api to backend";
-                // const secondTeamId = response.data.teamId
+        // DISPLAYING STATS
 
-                // axios.post(urlDetailsFirstTeam, token)
-                //     .then(response => {
+        // const urlDetailsFirstTeam = "api to backend";
+        // const firstTeamId = response.data.teamId
 
-                //     })
+        // axios.post(urlDetailsFirstTeam, {
+        //     token,
+        //     firstTeamId
+        // })
+        // .then(response => {
+        //     const statsContainer = document.querySelector("#statistics-team-1 .statistics__container");
 
-            // })
-            // .catch(error => {
-            //     console.log(error);
-            // });
+        //     response.data.matches.forEach(match => {
+        //         const matchInfo = `
+        //             <div class="statistics__row">
+        //                 <div class="statistics__element">${match.team1.teamName}</div>
+        //                 <div class="statistics__element statistics__element--win">${match.goalsTeam1}:${match.goalsTeam2}</div>
+        //                 <div class="statistics__element">${match.team2.teamName}</div>
+        //             </div>
+        //         `;
+
+        //         statsContainer.insertAdjacentHTML("beforeend", matchInfo);
+        //     });
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        // })
+
+        // const urlDetailsSecondTeam = "api to backend";
+        // const secondTeamId = response.data.teamId
+
+        // axios.post(urlDetailsFirstTeam, token)
+        //     .then(response => {
+
+        //     })
+
+        // })
+        // .catch(error => {
+        //     console.log(error);
+        // });
 
     } else {
 

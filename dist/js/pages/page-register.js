@@ -1,4 +1,5 @@
 import validate from "./validation.js";
+import createPopup from "./popup.js";
 
 validate(() => {
 
@@ -14,7 +15,10 @@ validate(() => {
         phoneNumber: document.querySelector("#phone").value
     };
 
-    const url = "api to backend";
+    console.log(document.querySelector("#email").value);
+    console.log(document.querySelector("#password").value);
+
+    const url = "http://localhost:3000/api/register";
 
     axios.post(url, registerData)
         .then(response => { 
@@ -25,8 +29,11 @@ validate(() => {
             // window.location.replace('http://127.0.0.1:8080/cabinet.html');
         })
         .catch(error => {
+            const content = document.querySelector("body");
+            createPopup(error, content);
             console.log(error);
         });
 }, () => {
-    console.log("Invalid data");
+    const content = document.querySelector("body")
+    createPopup("Invalid data. Please, fill in all the necessary fields", content);
 });

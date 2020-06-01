@@ -1,4 +1,7 @@
 import Match from "../classes/Match.js";
+import createPopup from "./popup.js";
+
+const token = localStorage.getItem("token");
 
 // API call to backend
 const matches = [
@@ -18,61 +21,87 @@ const matches = [
 const matchesContainer = document.querySelector("#matches-container");
 
 async function init() {
-    // const url = "call to api";
-    // GET RESPONSE
-    // let response = await axios.get(url);
-
-    // console.log(response);
-    // TRANSFORM RESPONSE
-    // matches = await response.JSON();
-
-    // DISPLAY
-    displayMatches(matches);
+    try {
+        // const url = "http://localhost:3000/api/get-current-matchess";
+        // // // GET RESPONSE
+        // let response = await axios.get(url);
+    
+        // console.log(response);
+        // TRANSFORM RESPONSE
+        // matches = await response.JSON();
+    
+        // DISPLAY
+        displayMatches(matches);
+    }
+    catch(error) {
+        createPopup("Some error while loading matches occured", document.querySelector("body"));
+    }
 }
 
 function displayMatches(matches) {
     matchesContainer.innerHTML = "";
 
-    matches.forEach(match => {
-        const matchContent = `
-            <figure class="match">
-                <div class="match__general-info">
-                    <div>
-                        <div class="match__team match__first-team">
-                            <!-- team logo -->
-                            <h4 class="match__team-name">${match.firstTeamName}</h4>
+    if (matches.length > 0) {
+        matches.forEach(match => {
+            const matchContent = `
+                <figure class="match">
+                    <div class="match__general-info">
+                        <div>
+                            <div class="match__team match__first-team">
+                                <!-- team logo -->
+                                <h4 class="match__team-name">${match.firstTeamName}</h4>
+                            </div>
+                            <img src="dist/images/match.jpg" alt="Match image" class="match__image">
+                            <div class="match__team match__second-team">
+                                <!-- team logo -->
+                                <h4 class="match__team-name">${match.secondTeamName}</h4>
+                            </div>
                         </div>
-                        <img src="dist/images/match.jpg" alt="Match image" class="match__image">
-                        <div class="match__team match__second-team">
-                            <!-- team logo -->
-                            <h4 class="match__team-name">${match.secondTeamName}</h4>
+                        <h2 class="match__name">
+                            ${match.matchName}
+                        </h2>
+                    </div>
+        
+                    <div class="match__date-info">
+                        <p class="match__date">
+                            ${match.datetime.getDate() >= 10? match.datetime.getDate() : "0" + match.datetime.getDate()}.${match.datetime.getMonth() + 1 >= 10? match.datetime.getMonth() + 1: "0" + (match.datetime.getMonth() + 1)}.${match.datetime.getFullYear()}
+                        </p>
+                        <p class="match__time">${match.datetime.getHours()}:${match.datetime.getMinutes()}</p>
+                    </div>
+        
+                    <div class="match__coefficients-info">
+                        <div class="match__coefficients-container">
+                            <div class="match__coefficient match__coefficient--first">1: ${match.coefFirst}</div>
+                            <div class="match__coefficient match__coefficient--second">x: ${match.coefX}</div>
+                            <div class="match__coefficient match__coefficient--third">2: ${match.coefSecond}</div>
                         </div>
+                        <a class="btn btn-link" href="http://127.0.0.1:8080/match-details.html?id=${match.id}" id="match-detail-link-${match.id}">Detailed View</a>
                     </div>
-                    <h2 class="match__name">
-                        ${match.matchName}
-                    </h2>
-                </div>
-    
-                <div class="match__date-info">
-                    <p class="match__date">
-                        ${match.datetime.getDate() >= 10? match.datetime.getDate() : "0" + match.datetime.getDate()}.${match.datetime.getMonth() + 1 >= 10? match.datetime.getMonth() + 1: "0" + (match.datetime.getMonth() + 1)}.${match.datetime.getFullYear()}
-                    </p>
-                    <p class="match__time">${match.datetime.getHours()}:${match.datetime.getMinutes()}</p>
-                </div>
-    
-                <div class="match__coefficients-info">
-                    <div class="match__coefficients-container">
-                        <div class="match__coefficient match__coefficient--first">1: ${match.coefFirst}</div>
-                        <div class="match__coefficient match__coefficient--second">x: ${match.coefX}</div>
-                        <div class="match__coefficient match__coefficient--third">2: ${match.coefSecond}</div>
-                    </div>
-                    <a class="btn" href="http://127.0.0.1:8080/match-details.html?id=${match.id}">Detailed View</a>
-                </div>
-            </figure>
-        `;
-    
-        matchesContainer.insertAdjacentHTML("beforeend", matchContent);
-    });
+                </figure>
+            `;
+        
+            matchesContainer.insertAdjacentHTML("beforeend", matchContent);
+        });
+        
+        const btnLinks = Array.from(document.querySelectorAll(".btn-link"));
+        btnLinks.forEach(btnLink => {
+            btnLink.addEventListener("click", e => {
+                if (!token) {
+                    e.preventDefault();
+                    createPopup(
+                        "Sign in to view defailed information about matches and make bets", 
+                        document.querySelector("body"),
+                        "http://127.0.0.1:8080/login.html",
+                        "Sign in"
+                    );
+                }
+            });
+        })
+
+    } else {
+        const errorMessage = '<p class="page-matches__error">There is no matches suitable for the search criterias</p>';
+        matchesContainer.insertAdjacentHTML("beforeend", errorMessage);
+    }
 }
 
 // Adding event Listeners

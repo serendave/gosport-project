@@ -37,7 +37,7 @@
                         <img src="dist/images/team-logo-2.jpg" alt="Team logo" class="match-detail__logo">
                     </div>
                 </figure>
-
+                <h3 class="heading-3">Coefficients</h3>
                 <figure class="match-detail__coefficients">
                     <div class="match-detail__item match-detail__item--blue" 
                         id="coefficient-1" 
@@ -70,7 +70,7 @@
                         <span>2x: </span><span>2.1</span>
                     </div>
                 </figure>
-
+                <h3 class="heading-3">Mathematical predictions</h3>
                 <figure class="match-detail__math-prediction">
                     <div class="match-detail__item match-detail__item--blue" id="math-prediction-1">
                         <span>1: </span><span>60%</span>
@@ -91,7 +91,7 @@
                         <span>2x: </span><span>40%</span>
                     </div>
                 </figure>
-
+                <h3 class="heading-3">Neural predictions</h3>
                 <figure class="match-detail__neuro-prediction">
                     <div class="match-detail__item match-detail__item--orange" id="neuro-prediction-1">
                         <span>1: </span><span>60%</span>
@@ -170,6 +170,27 @@
     </main>
 
     <footer class="footer"></footer>
+
+    <div class="page__modal page__modal--hidden" id="modal-make-bet">
+        <div class="page__modal-content">
+            <div class="page__modal-content--close">+</div>
+            <div>You would like to bet:</div>
+            <div>
+                <span>Teamname</span>
+                <span>| Result: </span>
+                <span>X (2.01)</span>
+            </div>
+            <div>Your bet:</div>
+            <div class="page__modal-balance">
+                <span>Balance:</span> 
+                <span>320 UAH</span> 
+            </div>            
+            <div class="page__modal-bet">
+                <input type="text" class="input" id="bet-value">
+                <button class="btn">Make a bet</button>
+            </div>
+        </div>
+    </div>
 </body>
 
 <script src="dist/js/pages/page-match-details.js"></script>
