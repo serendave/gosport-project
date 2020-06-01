@@ -43,6 +43,7 @@ try {
     return res.json({ matches: result });
   });
 
+  // MatchId 5ed52c6f7490bb06713c6606 for debug.
   app.get('/api/match/get-details', async (req, res) => {
     const { token, matchId } = req.query;
     const result = await dataController.getMatchDetails(token, matchId);

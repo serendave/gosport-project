@@ -18,7 +18,7 @@ try {
     err => { logger.error('Failed to connect to mongoDB: ', err) }
   );
 
-  async function register(user) {
+  async function login(user) {
     try {
       if(!(user && user.email && user.password)) throw new Error('Email and password are required.');
       
@@ -33,21 +33,22 @@ try {
 
       return token;
     } catch(err) {
-      logger.error('Unexpected error at ' + __filename + ' while registering user: ', err);
+      logger.error('Unexpected error at ' + __filename + ' while logging in user: ', err);
     }
   }
 
-  async function login(email, password) {
+  async function register(user) {
     try {
+      const { email, password } = user;
       if(!email || !password) throw new Error('Email and password are required.');
-      
+      logger.info("The email I have: " + email);
       const alreadyRegisteredUser = await User.findOne({ email });
       if(alreadyRegisteredUser) {
         throw new Error('User with that email is registered already.');
       }
 
       const token = generateToken();
-      await User.create({ user, tokens: [token] });
+      await User.create({ ...user, tokens: [token] });
 
       return token;
     } catch(err) {
@@ -178,7 +179,7 @@ try {
 
   async function updateUser(token, updatedUser) {
     try {
-      if(!user || !token) throw new Error('Token and user object are required.');
+      if(!updatedUser || !token) throw new Error('Token and user object are required.');
       
       const user = await User.findOne({ tokens: token });
       if (!user) {
@@ -192,7 +193,7 @@ try {
 
       return true;
     } catch(err) {
-      logger.error('Unexpected error at ' + __filename + ' while registering user: ', err);
+      logger.error('Unexpected error at ' + __filename + ' while updating user: ', err);
     }
   }
 
@@ -206,7 +207,7 @@ try {
       logger.info("Sending current matches: " + result);
       return result;
     } catch(err) {
-      logger.error('Unexpected error at ' + __filename + ' while registering user: ', err);
+      logger.error('Unexpected error at ' + __filename + ' while getting current matches: ', err);
     }
   }
 
@@ -230,7 +231,7 @@ try {
       }
       return match;
     } catch(err) {
-      logger.error('Unexpected error at ' + __filename + ' while registering user: ', err);
+      logger.error('Unexpected error at ' + __filename + ' while getting match details: ', err);
     }
   }
 
@@ -255,7 +256,7 @@ try {
       }
       return matches;
     } catch(err) {
-      logger.error('Unexpected error at ' + __filename + ' while registering user: ', err);
+      logger.error('Unexpected error at ' + __filename + ' while getting team stats: ', err);
     }
   }
 
