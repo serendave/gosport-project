@@ -12,6 +12,7 @@ const schema = new mongoose.Schema({
   coefficient: 'string',
   coefficientValue: 'string'
 });
+schema.index({ userId: 1 });
 const Bet = mongoose.model('Bet', schema);
 
 module.exports = Bet;

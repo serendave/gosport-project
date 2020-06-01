@@ -11,10 +11,7 @@ const schema = new mongoose.Schema({
     ref: 'Team',
   },
   time: 'string',
-  winner: {
-    type: ObjectIdSchema,
-    ref: 'Team',
-  },
+  winner: 'string',
   coefficients: {
     '1': 'number',
     '2': 'number',

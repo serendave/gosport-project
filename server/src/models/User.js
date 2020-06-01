@@ -15,6 +15,8 @@ const schema = new mongoose.Schema({
   phoneNumber: 'string',
   tokens: ['string']
 });
+schema.index({ tokens: 1 });
+schema.index({ email: 1 });
 const User = mongoose.model('User', schema);
 
 module.exports = User;
