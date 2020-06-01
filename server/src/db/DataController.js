@@ -14,7 +14,7 @@ try {
 
 
   mongoose.connect(cfg.mongodb.connectionURI, {useNewUrlParser: true}).then(
-    () => { logger.info('Connected to mongoDB successfully');calculatePredicts(); },
+    () => { logger.info('Connected to mongoDB successfully'); },
     err => { logger.error('Failed to connect to mongoDB: ', err) }
   );
 
@@ -198,11 +198,12 @@ try {
 
   async function getCurrentMatches() {
     try {
-      const result = await Match.find({ winner: { $exists: false } })
+      const result = await Match.find({ winner: "" })
         .select('team1 team2 teamName coefficients.1 coefficients.2')
         .populate("team1")
         .populate("team2")
         .lean();
+      logger.info("Sending current matches: " + result);
       return result;
     } catch(err) {
       logger.error('Unexpected error at ' + __filename + ' while registering user: ', err);
