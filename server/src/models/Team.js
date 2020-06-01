@@ -9,6 +9,9 @@ const schema = new mongoose.Schema({
       ref: 'Match',
     },
   ],
+  wins: 'number',
+  loses: 'number',
+  draws: 'number'
 });
 schema.index({ teamName: 1 });
 const Team = mongoose.model('Team', schema);

@@ -8,13 +8,13 @@ try {
 
   const Bet = require('../models/Bet');
   const User = require('../models/User');
-  const Match = require('../models/User');
-  const Team = require('../models/User');
+  const Match = require('../models/Match');
+  const Team = require('../models/Team');
   const { v4: generateToken } = require('uuid');
 
 
   mongoose.connect(cfg.mongodb.connectionURI, {useNewUrlParser: true}).then(
-    () => { logger.info('Connected to mongoDB successfully') },
+    () => { logger.info('Connected to mongoDB successfully'); },
     err => { logger.error('Failed to connect to mongoDB: ', err) }
   );
 
@@ -53,6 +53,59 @@ try {
     } catch(err) {
       logger.error('Unexpected error at ' + __filename + ' while registering user: ', err);
     }
+  }
+
+  async function calculateTeamStats() {
+    const teams = await Team.find();
+    logger.info("Starting to calculate wins for " + teams.length + " teams.");
+    for(let team of teams) {
+      const wonMatches = await Match.find({ winner: team._id.toString() });
+      const draw = await Match.find({ winner: "nobody", $or: [{ team1: team._id} , { team2: team._id }] });
+      const loses = await Match.find({ $or: [{ team1: team._id }, { team2: team._id }], winner: { $ne: team._id } });
+      team.wins = wonMatches.length;
+      team.draws = draw.length;
+      team.loses = loses.length;
+      logger.info('Saving ' + team.loses + ' loses for ' + team._id, ' team');
+      await team.save();
+    }
+    logger.info("FInished successfully.");
+  }
+
+  async function loadDataset() {
+    const data = require('../../data');
+    logger.info("Starting to upload " + data.length + " samples");
+    let createdTeams = 0;
+    let foundTeams = 0;
+    for(let match of data) {
+      const { team1, team2 } = match;
+      const team1Query = { teamName: team1 };
+      const team2Query = { teamName: team2 };
+      let team1Doc = await Team.findOne(team1Query);
+      let team2Doc = await Team.findOne(team2Query);
+      if (!team1Doc) {
+        team1Doc = await Team.create(team1Query);
+        createdTeams++;
+      } else foundTeams++;
+      if(!team2Doc) {
+        team2Doc = await Team.create(team2Query);
+        createdTeams++;
+      } else foundTeams++;
+      const team1Id = team1Doc._id;
+      const team2Id = team2Doc._id;
+      match.team1 = team1Id;
+      match.team2 = team2Id;
+      if(team1 === match.winner) {
+        match.winner = team1Id;
+      } else if (team2 === match.winner) {
+        match.winner = team2Id;
+      }
+      const matchDoc = await Match.create(match);
+      team1Doc.playedMatches.push(matchDoc._id);
+      team2Doc.playedMatches.push(matchDoc._id);
+      await team1Doc.save();
+      await team2Doc.save();
+    }
+    logger.info("Successfully uploaded. CreatedTeams: " + createdTeams + " foundTeams: " + foundTeams);
   }
 
   async function updateUser(token, updatedUser) {
