@@ -81,7 +81,6 @@ window.onload = () => {
 
                     betsContainer.insertAdjacentHTML("beforeend", betInfo);
                 });
-
             })
             .catch(error => {
                 console.log(error);
@@ -90,6 +89,20 @@ window.onload = () => {
         document.querySelector("#btn-logout").addEventListener("click", e => {
             localStorage.clear();
             window.location.replace('http://127.0.0.1:8080/login.html');
+        });
+
+        const editUrl = "http://localhost:3000/api/update-user";
+
+        document.querySelector("#btn-upgrade").addEventListener("click", e => {
+            axios.post(editUrl, { token, isPremium: true })
+                .then(response => {
+                    if (response.status === 200) {
+                        location.reload();   
+                    }
+                })
+                .catch(error => {
+                    console.log(error);
+                });
         });
 
         document.querySelector("#btn-edit").addEventListener("click", e => {
@@ -177,7 +190,7 @@ window.onload = () => {
                     <input type="submit" value="Apply changes" class="btn center" id="btn-apply-changes">
                 `;
 
-                const editUrl = "http://localhost:3000/api/update-user";
+                
 
                 document.querySelector("#btn-apply-changes").addEventListener("click", e => {
                     e.preventDefault();
@@ -197,7 +210,7 @@ window.onload = () => {
                     axios.post(editUrl, fullData)
                         .then(response => {
                             if (response.status === 200) {
-                                // location.reload();   
+                                location.reload();   
                             }
                         })
                         .catch(error => {

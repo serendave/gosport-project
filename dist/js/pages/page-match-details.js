@@ -5,6 +5,7 @@ let chosenCoefficient;
 let teamName = "";
 let token;
 let balance;
+let isPremium;
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -54,7 +55,7 @@ function displayBetModal(element) {
         };
 
         console.log(betData);
-        
+
         const url = "http://localhost:3000/api/make-bet";
         axios.post(url, betData)
             .then(response => {
@@ -146,6 +147,22 @@ function displayStats(matches, statsContainer, teamId) {
     });
 }
 
+function displayPremiumAdv(element) {
+    element.innerHTML = `
+        <h2 class="heading-2 heading-2--light" style="margin-right: 2rem">Upgrade to </h2>
+        <a href="cabinet.html" class="btn btn--big">Premium</a>
+    `;
+
+    element.style.display = "block";
+    element.style.height = "20rem";
+    element.style.display = "flex";
+    element.style.alignItems = "center";
+    element.style.justifyContent = "center";
+    element.style.backgroundImage = "url(dist/images/upgrade-premium.jpg)";
+    element.style.backgroundPosition = "center";
+    element.style.backgroundSize = "cover";
+}
+
 function parseDate(dateToParse) {
     const [dateInfo, timeInfo] = dateToParse.split(" ");
     const [date, month, year] = dateInfo.split("-");
@@ -161,6 +178,19 @@ window.onload = () => {
     token = localStorage.getItem("token");
 
     if (token !== undefined && token !== null) {
+
+        // GETTING USER BALANCE AND PREMIUM
+        const userInfoUrl = "http://localhost:3000/api/user-info";
+
+        axios.get(userInfoUrl, { params: { token } })
+            .then(response => {
+                // console.log(response);
+                balance = response.data.user.balance;
+                isPremium = response.data.user.isPremium;
+            })
+            .catch(error => {
+                console.log(error);
+            });
 
         // Parse the URL parameter
         matchId = getParameterByName("id");
@@ -223,20 +253,24 @@ window.onload = () => {
                     .textContent = match.mathPredicts["2x"].toFixed(2) + " %";
 
 
-                // DISPLAYING NEURO PREDICTION
-                document.querySelector("#neuro-prediction-1 span:last-child")
-                    .textContent = match.neuralPredicts["1"] + "%";
-                document.querySelector("#neuro-prediction-x span:last-child")
-                    .textContent = match.neuralPredicts["x"] + "%";
-                document.querySelector("#neuro-prediction-2 span:last-child")
-                    .textContent = match.neuralPredicts["2"] + "%";
-                document.querySelector("#neuro-prediction-1x span:last-child")
-                    .textContent = match.neuralPredicts["1x"] + "%";
-                document.querySelector("#neuro-prediction-12 span:last-child")
-                    .textContent = match.neuralPredicts["12"] + "%";
-                document.querySelector("#neuro-prediction-2x span:last-child")
-                    .textContent = match.neuralPredicts["2x"] + "%";
-
+                if (isPremium) {
+                    // DISPLAYING NEURO PREDICTION
+                    document.querySelector("#neuro-prediction-1 span:last-child")
+                        .textContent = match.neuralPredicts["1"] + "%";
+                    document.querySelector("#neuro-prediction-x span:last-child")
+                        .textContent = match.neuralPredicts["x"] + "%";
+                    document.querySelector("#neuro-prediction-2 span:last-child")
+                        .textContent = match.neuralPredicts["2"] + "%";
+                    document.querySelector("#neuro-prediction-1x span:last-child")
+                        .textContent = match.neuralPredicts["1x"] + "%";
+                    document.querySelector("#neuro-prediction-12 span:last-child")
+                        .textContent = match.neuralPredicts["12"] + "%";
+                    document.querySelector("#neuro-prediction-2x span:last-child")
+                        .textContent = match.neuralPredicts["2x"] + "%";
+                } else {
+                    const neuroPredictsContainer = document.querySelector(".match-detail__neuro-prediction");
+                    displayPremiumAdv(neuroPredictsContainer);
+                }
 
                 // DISPLAYING DATE
                 const datetime = parseDate(match.date);
@@ -248,44 +282,36 @@ window.onload = () => {
                 document.querySelector("#match-date").textContent = date;
                 document.querySelector("#match-time").textContent = time;
 
+                if (isPremium) {
 
-                // DISPLAYING STATS
-                const urlStats = "http://localhost:3000/api/team/getStats";
-                const firstTeamId = match.team1._id;
-                const secondTeamId = match.team2._id;
+                    // DISPLAYING STATS
+                    const urlStats = "http://localhost:3000/api/team/getStats";
+                    const firstTeamId = match.team1._id;
+                    const secondTeamId = match.team2._id;
 
-                axios.get(urlStats, { params: { token, teamId: firstTeamId } })
-                    .then(response => {
-                        // console.log(response);
-                        const statsContainer = document.querySelector("#statistics-team-1 .statictics__container");
-                        displayStats(response.data.matches, statsContainer, firstTeamId);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    })
+                    axios.get(urlStats, { params: { token, teamId: firstTeamId } })
+                        .then(response => {
+                            // console.log(response);
+                            const statsContainer = document.querySelector("#statistics-team-1 .statictics__container");
+                            displayStats(response.data.matches, statsContainer, firstTeamId);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
 
-                axios.get(urlStats, { params: { token, teamId: secondTeamId } })
-                    .then(response => {
-                        // console.log(response);
-                        const statsContainer = document.querySelector("#statistics-team-2 .statictics__container");
-                        displayStats(response.data.matches, statsContainer, secondTeamId);
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-
-                // GETTING USER BALANCE
-                const userInfoUrl = "http://localhost:3000/api/user-info";
-
-                axios.get(userInfoUrl, { params: { token } })
-                    .then(response => {
-                        // console.log(response);
-                        balance = response.data.user.balance;
-                    })
-                    .catch(error => {
-                        console.log(error);
-                    });
-
+                    axios.get(urlStats, { params: { token, teamId: secondTeamId } })
+                        .then(response => {
+                            // console.log(response);
+                            const statsContainer = document.querySelector("#statistics-team-2 .statictics__container");
+                            displayStats(response.data.matches, statsContainer, secondTeamId);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                } else {
+                    const statsContainer = document.querySelector(".match-detail__team-statistics");
+                    displayPremiumAdv(statsContainer);
+                }
             })
             .catch(error => {
                 console.log(error);
