@@ -39,29 +39,41 @@ function displayBetModal(element) {
     const makeBetButton = document.querySelector("#btn-make-bet");
     makeBetButton.addEventListener("click", e => {
         modalMakeBet.classList.add("page__modal--hidden");
-        
-        const betValue = document.querySelector("#bet-value");
-        console.log(betValue.value);
 
-        const url = "http://localhost:3000/api/make-bet";
-        axios.post(url, {
+        const betValueInput = document.querySelector("#bet-value");
+        const betValue = parseInt(betValueInput.value);
+        if (betValue == NaN) {
+            betValue = "0";
+        }
+
+        const betData = {
             token,
             matchId,
             coefficient,
-            amount: betValue.value
-        })
+            amount: betValue
+        };
+
+        console.log(betData);
+        
+        const url = "http://localhost:3000/api/make-bet";
+        axios.post(url, betData)
             .then(response => {
                 console.log(response);
 
                 if (response.data.errorCode) {
-                    createPopup(
-                        "You don't have enough money on your account. Replenish balance",
-                        "",
-                        "http://127.0.0.1:8080/cabinet.html",
-                        "Go to my cabinet"
-                    );
+                    if (document.querySelectorAll(".page__modal").length < 2) {
+                        createPopup(
+                            "You don't have enough money on your account. Replenish balance",
+                            "",
+                            "http://127.0.0.1:8080/cabinet.html",
+                            "Go to my cabinet"
+                        );
+                    }
+
+                    return;
                 }
-                else if (document.querySelectorAll(".page__modal").length < 2) {
+
+                if (document.querySelectorAll(".page__modal").length < 2) {
                     createPopup(
                         "You made bet! Go to your cabinet to see chosen bets",
                         "",

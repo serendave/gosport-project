@@ -16,6 +16,12 @@ html {
   @media (max-width: 1000px) {
     html {
       font-size: 50%; } }
+  @media (max-width: 600px) {
+    html {
+      font-size: 43.75%; } }
+  @media (max-width: 400px) {
+    html {
+      font-size: 37.5%; } }
 
 body {
   font-family: "Roboto", sans-serif;
@@ -28,6 +34,9 @@ body {
   letter-spacing: 1px;
   color: #fff;
   font-weight: 300; }
+  @media (max-width: 500px) {
+    .heading-1 {
+      font-size: 4rem; } }
 
 .heading-2 {
   font-size: 4.8rem;
@@ -222,6 +231,12 @@ body {
   border-radius: 5px;
   display: flex;
   background-color: #eeeeee; }
+  @media (max-width: 700px) {
+    .filters {
+      margin: 0 auto;
+      margin-top: 10rem;
+      flex-direction: column;
+      width: 40rem; } }
   .filters span {
     font-weight: 700;
     margin-right: 1rem; }
@@ -362,6 +377,9 @@ body {
   .match-detail__logo {
     width: 15rem;
     height: 15rem; }
+    @media (max-width: 800px) {
+      .match-detail__logo {
+        display: none; } }
   .match-detail__info {
     flex-direction: column; }
     .match-detail__info h3 {
@@ -396,6 +414,9 @@ body {
         background-color: #ffc929; }
   .match-detail__team-statistics {
     display: flex; }
+    @media (max-width: 800px) {
+      .match-detail__team-statistics {
+        flex-direction: column; } }
 
 .statistics {
   padding: 2rem;
@@ -451,6 +472,9 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center; }
+    @media (max-width: 600px) {
+      .features__content {
+        flex-direction: column; } }
   .features__item {
     padding: 1rem;
     text-align: center; }
@@ -597,6 +621,9 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 4rem; }
+    @media (max-width: 1000px) {
+      .page-matches__container {
+        grid-template-columns: repeat(auto-fit, minmax(47rem, 1fr)); } }
   .page-matches__error {
     text-align: center;
     font-size: 2rem; }
@@ -605,6 +632,9 @@ body {
   background-color: #fff;
   padding: 8rem 0;
   color: #212121; }
+  @media (max-width: 700px) {
+    .page-cabinet {
+      margin-top: 10rem; } }
   .page-cabinet__heading {
     display: flex;
     justify-content: space-between;
@@ -625,9 +655,17 @@ body {
     .page-cabinet__logout button {
       margin-left: auto;
       margin-right: 2rem; }
+  .page-cabinet__form {
+    margin-bottom: 2rem; }
+    .page-cabinet__form input {
+      background-color: #f8f8f8;
+      border: 1px solid #ccc; }
   .page-cabinet__user {
     display: flex;
     margin-bottom: 3.5rem; }
+    @media (max-width: 700px) {
+      .page-cabinet__user {
+        flex-direction: column; } }
     .page-cabinet__user-image {
       width: 15rem;
       height: 15rem;
@@ -635,12 +673,26 @@ body {
       margin: 0 auto;
       margin-bottom: 2rem;
       border: 1px solid #ccc; }
+      @media (max-width: 700px) {
+        .page-cabinet__user-image {
+          margin: 0;
+          margin-left: 2rem;
+          margin-bottom: 2rem; } }
     .page-cabinet__user-profile {
       margin-right: 3rem; }
+      @media (max-width: 700px) {
+        .page-cabinet__user-profile button {
+          width: 25rem;
+          margin: 0;
+          margin-left: 2rem;
+          margin-bottom: 2rem; } }
     .page-cabinet__user #btn-edit {
       width: 100%;
       text-align: center;
       margin-bottom: 1rem; }
+      @media (max-width: 700px) {
+        .page-cabinet__user #btn-edit {
+          width: 25rem; } }
   .page-cabinet__row {
     padding: 1.5rem; }
     .page-cabinet__row:first-child {
@@ -684,6 +736,9 @@ body {
     transition: all .2s;
     display: flex;
     justify-content: space-between; }
+    @media (max-width: 700px) {
+      .page-cabinet__bet {
+        flex-direction: column; } }
     .page-cabinet__bet:not(:last-child) {
       margin-bottom: 1.5rem; }
     .page-cabinet__bet:hover {
@@ -702,6 +757,9 @@ body {
     border-radius: 5px;
     background-color: #eee;
     text-align: center; }
+    @media (max-width: 700px) {
+      .page-login__container {
+        margin-top: 10rem; } }
   .page-login__form {
     font-size: 2rem;
     margin-bottom: 4rem;
@@ -740,12 +798,18 @@ body {
     padding: 2rem;
     border-radius: 5px;
     background-color: #eee; }
+    @media (max-width: 700px) {
+      .page-register__container {
+        margin-top: 10rem; } }
   .page-register__form {
     font-size: 1.8rem; }
   .page-register__form-data {
     display: flex;
     align-items: center;
     margin-bottom: 4rem; }
+    @media (max-width: 900px) {
+      .page-register__form-data {
+        flex-direction: column; } }
   .page-register__row {
     padding: 1rem;
     display: flex;
@@ -772,9 +836,15 @@ body {
   background-image: linear-gradient(rgba(44, 62, 80, 0.7), rgba(44, 62, 80, 0.7)), url(../images/matches-background.jpg);
   background-size: cover;
   background-position: center; }
+  @media (max-width: 700px) {
+    .page-match-details {
+      padding-top: 10rem; } }
 
 .page-about-us {
   padding: 5rem 0; }
+  @media (max-width: 700px) {
+    .page-about-us {
+      padding-top: 15rem; } }
   .page-about-us__info {
     margin-bottom: 5rem; }
   .page-about-us__contacts, .page-about-us__creators {
@@ -881,6 +951,9 @@ body {
 .footer {
   padding: 4rem 15rem;
   background-color: #212121; }
+  @media (max-width: 500px) {
+    .footer {
+      padding: 4rem 5rem; } }
   .footer__logo-box {
     display: flex;
     align-items: center;
@@ -894,14 +967,27 @@ body {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8rem; }
+    @media (max-width: 700px) {
+      .footer__info-box {
+        flex-direction: column; } }
+    @media (max-width: 500px) {
+      .footer__info-box {
+        align-items: flex-start; } }
   .footer__nav-list, .footer__medias-list {
     width: max-content;
     list-style: none;
     display: flex;
     justify-content: space-between; }
+    @media (max-width: 500px) {
+      .footer__nav-list, .footer__medias-list {
+        width: 100%;
+        flex-direction: column; } }
   .footer__nav-list {
     padding-top: 1rem;
     border-top: 1px solid #fff; }
+    @media (max-width: 700px) {
+      .footer__nav-list {
+        margin-bottom: 3rem; } }
   .footer__nav-link, .footer__media-link {
     text-decoration: none; }
   .footer__nav-item {
@@ -931,7 +1017,11 @@ body {
     color: #fff;
     text-align: center;
     margin: 0 auto; }
+    @media (max-width: 500px) {
+      .footer__copyright {
+        width: 100%; } }
 
 .row {
   margin: 0 auto;
+  padding: 0 1rem;
   max-width: 1140px; }

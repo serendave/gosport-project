@@ -10,6 +10,14 @@ html {
     @media (max-width: 1000px) {
         font-size: 50%;
     }
+
+    @media (max-width: 600px) {
+        font-size: 43.75%;
+    }
+
+    @media (max-width: 400px) {
+        font-size: 37.5%;
+    }
 }
 
 body {
@@ -26,6 +34,10 @@ body {
     letter-spacing: 1px;
     color: $light;
     font-weight: 300;
+
+    @media (max-width: 500px) {
+        font-size: 4rem;
+    }
 }
 
 .heading-2 {

@@ -19,6 +19,10 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 4rem;
+
+        @media (max-width: 1000px) {
+            grid-template-columns: repeat(auto-fit, minmax(47rem, 1fr));
+        }
     }
 
     &__error {

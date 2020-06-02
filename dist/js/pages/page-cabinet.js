@@ -1,7 +1,11 @@
+import createPopup from "../utils/popup.js";
+
 window.onload = () => {
     const token = localStorage.getItem("token");
 
-    if (token !== undefined && token !== null) {
+    console.log(token);
+
+    if (token !== undefined && token !== null && token !== "") {
 
         const url = "http://localhost:3000/api/user-info";
 
@@ -59,13 +63,13 @@ window.onload = () => {
                     const betInfo = `
                         <div class="page-cabinet__bet animate__animated animate__zoomIn animate__faster">
                             <div class="page-cabinet__bet-info page-cabinet__bet-info--name">
-                                Match name 
+                                ${bet.team1} — ${bet.team2} 
                             </div>
                             <div class="page-cabinet__bet-info page-cabinet__bet-info--coefficient">
-                                ${bet.coefficient} (${parseInt(bet.coefficientValue).toFixed(2)})
+                                ${bet.coefficient} (${parseFloat(bet.coefficientValue).toFixed(2)})
                             </div>
                             <div class="page-cabinet__bet-info page-cabinet__bet-info--bet">
-                                <span>50</span>
+                                <span>${bet.amount}</span>
                                 <span>UAH</span>
                             </div>
                             <div class="page-cabinet__bet-info page-cabinet__bet-info--date">
@@ -86,6 +90,121 @@ window.onload = () => {
         document.querySelector("#btn-logout").addEventListener("click", e => {
             localStorage.clear();
             window.location.replace('http://127.0.0.1:8080/login.html');
+        });
+
+        document.querySelector("#btn-edit").addEventListener("click", e => {
+            if (document.querySelector(".page-register__form-data")) {
+                document.querySelector(".page-cabinet__form").innerHTML = "";
+            } else {
+                document.querySelector(".page-cabinet__form").innerHTML = `
+                    <div class="page-register__form-data">
+                        <div class="page-register__row">
+                            <div class="page-register__item">
+                                <div>
+                                    <label for="name">Username:</label>
+                                    <span>*</span>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    name="name" 
+                                    class="page-register__name input"
+                                    id="usernameInput"
+                                    value="${document.querySelector("#username").textContent}"
+                                >
+                            </div>
+                            <div class="page-register__item">
+                                <div>
+                                    <label for="surname">Real Name:</label>
+                                    <span>*</span>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    name="surname" 
+                                    class="page-register__surname input"
+                                    id="realnameInput"
+                                    value="${document.querySelector("#realname").textContent}"
+                                >
+                            </div>
+                            <div class="page-register__item">
+                                <label for="phone">Phone:</label>
+                                <input 
+                                    type="text" 
+                                    name="phone" 
+                                    class="page-register__phone input"
+                                    id="phoneInput"
+                                    value="${document.querySelector("#phone-number").textContent}"
+                                >
+                            </div>
+                        </div>
+                        <div class="page-register__row">
+                            <div class="page-register__item">
+                                <div>
+                                    <label for="birthday-date">Birthday date:</label>
+                                </div>
+                                <input 
+                                    type="date" 
+                                    name="birthday-date" 
+                                    class="page-register__birthday input"
+                                    id="birthdayInput"
+                                    value="${document.querySelector("#birthday-date").textContent}"
+                                >
+                            </div>
+                            <div class="page-register__item">
+                                <div>
+                                    <label for="country">Country:</label>
+                                    <span>*</span>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    name="country" 
+                                    class="page-register__country input"
+                                    id="countryInput"
+                                    value="${document.querySelector("#country").textContent}"
+                                >
+                            </div>
+                            <div class="page-register__item">
+                                <label for="city">City:</label>
+                                <input 
+                                    type="text" 
+                                    name="city" 
+                                    class="page-register__city input"
+                                    id="cityInput"
+                                    value="${document.querySelector("#city").textContent}"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <input type="submit" value="Apply changes" class="btn center" id="btn-apply-changes">
+                `;
+
+                const editUrl = "http://localhost:3000/api/update-user";
+
+                document.querySelector("#btn-apply-changes").addEventListener("click", e => {
+                    e.preventDefault();
+
+                    const editData = {
+                        dateOfBirthday: document.querySelector("#birthdayInput").value,
+                        userName: document.querySelector("#usernameInput").value,
+                        realName: document.querySelector("#realnameInput").value,
+                        country: document.querySelector("#countryInput").value,
+                        city: document.querySelector("#cityInput").value,
+                        phoneNumber: document.querySelector("#phoneInput").value
+                    };
+
+                    const fullData = { token, ...editData};
+                    console.log(fullData);
+
+                    axios.post(editUrl, fullData)
+                        .then(response => {
+                            if (response.status === 200) {
+                                // location.reload();   
+                            }
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                });
+            }
         });
 
     } else {
