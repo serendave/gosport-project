@@ -289,14 +289,14 @@ try {
   async function makeBet(token, matchId, coefficient, amount) {
     try {
       if(!token || !matchId || !coefficient || !amount) throw new Error('Token, matchId and coefficient are required.');
-      
-      const user = await User.findOne({ tokens: token }, { _id: true });
+      const user = await User.findOne({ tokens: token });
       if (!user) {
         throw new Error('Incorrect token.');
       }
     
       amount = parseFloat(amount);
       user.balance = parseFloat(user.balance);
+
 
       if (user.balance < amount) {
         return false;
