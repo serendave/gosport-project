@@ -297,6 +297,9 @@ try {
         throw new Error('Incorrect token.');
       }
 
+      const bets = await Bet.find({ userId: user._id }).lean();
+      user.bets = bets;
+
       return user;
     } catch(err) {
       logger.error('Unexpected error at ' + __filename + ' while registering user: ', err);
