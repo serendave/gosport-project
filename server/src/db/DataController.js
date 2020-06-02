@@ -56,6 +56,24 @@ try {
     }
   }
 
+  async function appendNeuralData() {
+    const data = require('../../neuralData');
+    logger.info("Starting to add neural predicts");
+    let amount = 0;
+    for(let piece of data) {
+      const matchId = piece.matchId;
+      const match = await Match.findById(matchId);
+      match.neuralPredicts = piece.neuralCoefficients;
+      const coefficients = ['1', '2', '1x', '2x', 'x', '12'];
+      for(let key of coefficients) {
+        match.neuralPredicts[key] = parseFloat(match.neuralPredicts[key]);
+      }
+      await match.save();
+      amount++;
+    }
+    logger.info("Successfully added " + amount + " predicts.");
+  }
+
   async function calculatePredicts() {
     const matches = await Match.find().populate("team1").populate("team2");
     for(let match of matches) {
