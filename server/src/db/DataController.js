@@ -216,7 +216,7 @@ try {
         throw new Error('Incorrect token.');
       }
 
-      for(let [key, value] in Object.entries(updatedUser)) {
+      for(let [key, value] of Object.entries(updatedUser)) {
         user[key] = value;
       }
       await user.save();
