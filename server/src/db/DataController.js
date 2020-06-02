@@ -14,7 +14,7 @@ try {
 
 
   mongoose.connect(cfg.mongodb.connectionURI, {useNewUrlParser: true}).then(
-    () => { logger.info('Connected to mongoDB successfully');calculatePredicts(); },
+    async () => { logger.info('Connected to mongoDB successfully'); },
     err => { logger.error('Failed to connect to mongoDB: ', err) }
   );
 
@@ -200,6 +200,7 @@ try {
   async function getCurrentMatches() {
     try {
       const result = await Match.find({ winner: "" })
+        .select('team1 team2 date goalsTeam1 goalsTeam2 coefficients.1 coefficients.2 coefficients.x')
         .populate("team1")
         .populate("team2")
         .lean();
