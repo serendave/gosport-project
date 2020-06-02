@@ -56,13 +56,13 @@ try {
     return res.json({ matches: result });
   });
 
-  app.post('api/make-bet', async (req, res) => {
+  app.post('/api/make-bet', async (req, res) => {
     const { token, matchId, coefficient } = req.body;
     await dataController.makeBet(token, matchId, coefficient);
     return res.send();
   });
 
-  app.get('api/user-info', async (req, res) => {
+  app.get('/api/user-info', async (req, res) => {
     const { token } = req.query;
     const result = await dataController.getUserInfo(token);
     return res.json({ user: result });

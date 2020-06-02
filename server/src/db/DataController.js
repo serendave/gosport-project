@@ -200,7 +200,7 @@ try {
   async function getCurrentMatches() {
     try {
       const result = await Match.find({ winner: "" })
-        .select('team1 team2 teamName coefficients.1 coefficients.2')
+        .select('team1 team2 time goalsTeam1 goalsTeam2 coefficients.1 coefficients.2')
         .populate("team1")
         .populate("team2")
         .lean();
