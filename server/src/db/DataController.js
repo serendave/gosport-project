@@ -220,12 +220,7 @@ try {
         throw new Error('Incorrect token.');
       }
 
-      const mask = {};
-      if (!user.isPremium) {
-        mask.neuralPredicts = false;
-      }
-
-      const match = await Match.findById({ _id: matchId }, mask)
+      const match = await Match.findById({ _id: matchId })
         .populate('team1').populate('team2').lean();
       if(!match) {
         throw new Error('Wrong match id.');
