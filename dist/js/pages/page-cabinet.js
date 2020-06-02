@@ -5,10 +5,9 @@ window.onload = () => {
 
         const url = "http://localhost:3000/api/user-info";
 
-        axios(url, { params: { token } })
+        axios.get(url, { params: { token } })
             .then(response => {
                 console.log(response);
-
 
                 const userInfo = response.data.user;
 

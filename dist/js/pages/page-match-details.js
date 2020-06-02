@@ -4,6 +4,7 @@ let matchId;
 let chosenCoefficient;
 let teamName = "";
 let token;
+let balance;
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -32,20 +33,35 @@ function displayBetModal(element) {
         modalMakeBet.classList.add("page__modal--hidden");
     });
 
+    const balanceInfo = document.querySelector(".page__modal-balance span:last-child");
+    balanceInfo.textContent = balance + " UAH";
+
     const makeBetButton = document.querySelector("#btn-make-bet");
     makeBetButton.addEventListener("click", e => {
         modalMakeBet.classList.add("page__modal--hidden");
+        
+        const betValue = document.querySelector("#bet-value");
+        console.log(betValue.value);
 
         const url = "http://localhost:3000/api/make-bet";
         axios.post(url, {
             token,
             matchId,
-            coefficient: chosenCoefficient.split(" ")[0]
+            coefficient,
+            amount: betValue.value
         })
             .then(response => {
                 console.log(response);
 
-                if (document.querySelectorAll(".page__modal").length < 2) {
+                if (response.data.errorCode) {
+                    createPopup(
+                        "You don't have enough money on your account. Replenish balance",
+                        "",
+                        "http://127.0.0.1:8080/cabinet.html",
+                        "Go to my cabinet"
+                    );
+                }
+                else if (document.querySelectorAll(".page__modal").length < 2) {
                     createPopup(
                         "You made bet! Go to your cabinet to see chosen bets",
                         "",
@@ -141,12 +157,12 @@ window.onload = () => {
         // Get the match and display it
         const url = "http://localhost:3000/api/match/get-details";
 
-        console.log(token, "token");
-        console.log(matchId, "matchId");
+        // console.log(token, "token");
+        // console.log(matchId, "matchId");
 
         axios.get(url, { params: { token, matchId } })
             .then(response => {
-                console.log(response);
+                // console.log(response);
 
                 const match = response.data.match;
 
@@ -222,7 +238,7 @@ window.onload = () => {
 
                 axios.get(urlStats, { params: { token, teamId: firstTeamId } })
                     .then(response => {
-                        console.log(response);
+                        // console.log(response);
                         const statsContainer = document.querySelector("#statistics-team-1 .statictics__container");
                         displayStats(response.data.matches, statsContainer, firstTeamId);
                     })
@@ -232,13 +248,26 @@ window.onload = () => {
 
                 axios.get(urlStats, { params: { token, teamId: secondTeamId } })
                     .then(response => {
-                        console.log(response);
+                        // console.log(response);
                         const statsContainer = document.querySelector("#statistics-team-2 .statictics__container");
                         displayStats(response.data.matches, statsContainer, secondTeamId);
                     })
                     .catch(error => {
                         console.log(error);
                     });
+
+                // GETTING USER BALANCE
+                const userInfoUrl = "http://localhost:3000/api/user-info";
+
+                axios.get(userInfoUrl, { params: { token } })
+                    .then(response => {
+                        console.log(response);
+                        balance = response.data.user.balance;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+
             })
             .catch(error => {
                 console.log(error);
