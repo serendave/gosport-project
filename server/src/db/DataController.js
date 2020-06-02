@@ -290,7 +290,7 @@ try {
     try {
       if(!token || !matchId || !coefficient || !amount) throw new Error('Token, matchId and coefficient are required.');
       
-      const user = await User.findOne({ tokens: token }, { _id: true }).lean();
+      const user = await User.findOne({ tokens: token }, { _id: true });
       if (!user) {
         throw new Error('Incorrect token.');
       }
