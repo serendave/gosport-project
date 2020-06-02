@@ -48,7 +48,7 @@ try {
       }
 
       const token = generateToken();
-      await User.create({ ...user, tokens: [token] });
+      await User.create({ ...user, tokens: [token], dateOfRegistration: new Date().toISOString(), balance: 200 });
 
       return token;
     } catch(err) {
@@ -66,36 +66,48 @@ try {
 
   async function calculatePredictsForMatch(match) {
     let countWinsTeam1 = match.team1.wins;
-    let countLoseTeam1 = match.team1.loses;
     let countDrawTeam1 = match.team1.draws;
     let countWinsTeam2 = match.team2.wins;
-    let countLoseTeam2 = match.team2.loses;
     let countDrawTeam2 = match.team2.draws;
 
     let countMatches = 7;
     let winRateTeam1 = (countWinsTeam1 * 100) / countMatches;
-    let loseRateTeam1 = countLoseTeam1 * 100 / countMatches;
     let drawRateTeam1 = (countDrawTeam1 * 100) / countMatches;
     let winRateTeam2 = (countWinsTeam2 * 100) / countMatches;
-    let loseRateTeam2 = countLoseTeam2 * 100 / countMatches;
     let drawRateTeam2 = (countDrawTeam2 * 100) / countMatches;
     let marzha = 10;
     let totalPercent = winRateTeam1 + winRateTeam2 + drawRateTeam1 + drawRateTeam2;
     let totalDrawPercent = drawRateTeam1 + drawRateTeam2;
-    let totalDrawRecountPercent = (totalDrawPercent * 100) / totalPercent;
-    let koefx = 100 / (totalDrawRecountPercent);
-    let marzhax = ((koefx - 1) * marzha) / 100;
-    match.coefficients['x'] = koefx-marzhax;
     
+    let totalDrawRecountPercent = (totalDrawPercent * 100) / totalPercent;
+    if(totalDrawRecountPercent > 0) {
+      let koefx = 100 / (totalDrawRecountPercent);
+      let marzhax = ((koefx - 1) * marzha) / 100;
+      match.coefficients['x'] = koefx-marzhax;
+    }
+    else {
+      match.coefficients['x'] = 10;
+    }
+
     let totalWinTeam1RecountPercent = (winRateTeam1 * 100) / totalPercent;
-    let koef1 = 100 / totalWinTeam1RecountPercent;
-    let marzha1 = ((koef1 - 1) * marzha) / 100;
-    match.coefficients['1'] = koef1 - marzha1;
+    if(totalWinTeam1RecountPercent > 0) {
+      let koef1 = 100 / totalWinTeam1RecountPercent;
+      let marzha1 = ((koef1 - 1) * marzha) / 100;
+      match.coefficients['1'] = koef1 - marzha1;
+    }
+    else {
+      match.coefficients['1'] = 10;
+    }
     
     let totalWinTeam2RecountPercent = 100 - totalDrawRecountPercent - totalWinTeam1RecountPercent;
-    let koef2 = 100 / totalWinTeam2RecountPercent;
-    let marzha2 = ((koef2 - 1) * marzha) / 100;
-    match.coefficients['2'] = koef2 - marzha2;
+    if(totalWinTeam2RecountPercent > 0) {
+      let koef2 = 100 / totalWinTeam2RecountPercent;
+      let marzha2 = ((koef2 - 1) * marzha) / 100;
+      match.coefficients['2'] = koef2 - marzha2;
+    }
+    else {
+      match.coefficients['2'] = 10;
+    }
     
     let koef1x = 100 / (totalDrawRecountPercent + totalWinTeam1RecountPercent);
     let marzha1x = ((koef1x - 1) * marzha) / 100;
@@ -265,7 +277,7 @@ try {
         throw new Error('Incorrect token.');
       }
 
-      const match = await Match.findbyId({ _id: matchId }, { coefficients: true }).lean();
+      const match = await Match.findById({ _id: matchId }, { coefficients: true }).lean();
       if(!match) {
         throw new Error('Wrong match id.');
       }
@@ -284,7 +296,7 @@ try {
 
       return true;
     } catch(err) {
-      logger.error('Unexpected error at ' + __filename + ' while registering user: ', err);
+      logger.error('Unexpected error at ' + __filename + ' while making a bet: ', err);
     }
   }
 
