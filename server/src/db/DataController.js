@@ -268,16 +268,24 @@ try {
     }
   }
 
-  async function makeBet(token, matchId, coefficient) {
+  async function makeBet(token, matchId, coefficient, amount) {
     try {
-      if(!token || !matchId || !coefficient) throw new Error('Token, matchId and coefficient are required.');
+      if(!token || !matchId || !coefficient || !amount) throw new Error('Token, matchId and coefficient are required.');
       
       const user = await User.findOne({ tokens: token }, { _id: true }).lean();
       if (!user) {
         throw new Error('Incorrect token.');
       }
 
-      const match = await Match.findById({ _id: matchId }, { coefficients: true }).lean();
+      if (user.balance < amount) {
+        return false;
+      }
+
+      user.balance -= amount;
+      await user.save();
+
+      const match = await Match.findById({ _id: matchId })
+        .populate("team1").populate("team2").lean();
       if(!match) {
         throw new Error('Wrong match id.');
       }
@@ -289,8 +297,11 @@ try {
       await Bet.create({ 
         userId: user._id,
         matchId: match._id,
+        team1: match.team1.teamName,
+        team2: match.team2.teamName,
         coefficient,
         coefficientValue,
+        amount,
         time: new Date().toISOString(),
       });
 

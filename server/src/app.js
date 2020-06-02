@@ -56,8 +56,11 @@ try {
   });
 
   app.post('/api/make-bet', async (req, res) => {
-    const { token, matchId, coefficient } = req.body;
-    await dataController.makeBet(token, matchId, coefficient);
+    const { token, matchId, coefficient, amount } = req.body;
+    const result = await dataController.makeBet(token, matchId, coefficient, amount);
+    if(!result) {
+      return res.send({ errorCode: 1 });
+    }
     return res.send();
   });
 

@@ -10,7 +10,10 @@ const schema = new mongoose.Schema({
   time: 'string',
   state: 'string',
   coefficient: 'string',
-  coefficientValue: 'string'
+  coefficientValue: 'string',
+  team1: 'string',
+  team2: 'string',
+  amount: 'number'
 });
 schema.index({ userId: 1 });
 const Bet = mongoose.model('Bet', schema);
