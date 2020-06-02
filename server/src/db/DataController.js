@@ -294,6 +294,9 @@ try {
       if (!user) {
         throw new Error('Incorrect token.');
       }
+    
+      amount = parseFloat(amount);
+      user.balance = parseFloat(user.balance);
 
       if (user.balance < amount) {
         return false;
