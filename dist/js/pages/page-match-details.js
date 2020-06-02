@@ -60,90 +60,96 @@ window.onload = () => {
     // Check if user is authenticated
     const token = localStorage.getItem("token");
 
-    if (!token) {
+    if (token) {
 
         // Parse the URL parameter
         matchId = getParameterByName("id");
+        // console.log(matchId);
 
         // Get the match and display it
-        const url = "api to backend";
+        const url = "http://localhost:3000/api/match/get-details";
 
-        // axios.post(url, token)
-        //     .then(response => {
-        // DISPLAYING COEFFICIENTS
-        // document.querySelector("#coefficient-1 span:last-child").textContent = response.data;
-        // document.querySelector("#coefficient-x span:last-child").textContent = response.data;
-        // document.querySelector("#coefficient-2 span:last-child").textContent = response.data;
-        // document.querySelector("#coefficient-1x span:last-child").textContent = response.data;
-        // document.querySelector("#coefficient-12 span:last-child").textContent = response.data;
-        // document.querySelector("#coefficient-2x span:last-child").textContent = response.data;
-        const coefficients = Array.from(
-            document.querySelectorAll(".match-detail__coefficients .match-detail__item"));
+        axios.post(url, { token, matchId })
+            .then(response => {
 
-        coefficients.forEach(coefficient => {
-            coefficient.addEventListener("click", e => {
-                displayBetModal(e.target)
+                console.log(response);
+
+                // DISPLAYING COEFFICIENTS
+                // document.querySelector("#coefficient-1 span:last-child").textContent = response.data;
+                // document.querySelector("#coefficient-x span:last-child").textContent = response.data;
+                // document.querySelector("#coefficient-2 span:last-child").textContent = response.data;
+                // document.querySelector("#coefficient-1x span:last-child").textContent = response.data;
+                // document.querySelector("#coefficient-12 span:last-child").textContent = response.data;
+                // document.querySelector("#coefficient-2x span:last-child").textContent = response.data;
+
+
+                const coefficients = Array.from(
+                    document.querySelectorAll(".match-detail__coefficients .match-detail__item"));
+
+                coefficients.forEach(coefficient => {
+                    coefficient.addEventListener("click", e => {
+                        displayBetModal(e.target)
+                    });
+                });
+
+                // document.querySelector("#math-prediction-1 span:last-child").textContent = response.data;
+                // document.querySelector("#math-prediction-x span:last-child").textContent = response.data;
+                // document.querySelector("#math-prediction-2 span:last-child").textContent = response.data;
+                // document.querySelector("#math-prediction-1x span:last-child").textContent = response.data;
+                // document.querySelector("#math-prediction-12 span:last-child").textContent = response.data;
+                // document.querySelector("#math-prediction-2x span:last-child").textContent = response.data;
+
+                // document.querySelector("#neuro-prediction-1 span:last-child").textContent = response.data;
+                // document.querySelector("#neuro-prediction-x span:last-child").textContent = response.data;
+                // document.querySelector("#neuro-prediction-2 span:last-child").textContent = response.data;
+                // document.querySelector("#neuro-prediction-1x span:last-child").textContent = response.data;
+                // document.querySelector("#neuro-prediction-12 span:last-child").textContent = response.data;
+                // document.querySelector("#neuro-prediction-2x span:last-child").textContent = response.data;
+
+                // DISPLAYING DATE
+                // document.querySelector("#match-date").textContent = response.data;
+                // document.querySelector("#match-time").textContent = response.data;
+
+                // DISPLAYING STATS
+
+                // const urlDetailsFirstTeam = "api to backend";
+                // const firstTeamId = response.data.teamId
+
+                // axios.post(urlDetailsFirstTeam, {
+                //     token,
+                //     firstTeamId
+                // })
+                // .then(response => {
+                //     const statsContainer = document.querySelector("#statistics-team-1 .statistics__container");
+
+                //     response.data.matches.forEach(match => {
+                //         const matchInfo = `
+                //             <div class="statistics__row">
+                //                 <div class="statistics__element">${match.team1.teamName}</div>
+                //                 <div class="statistics__element statistics__element--win">${match.goalsTeam1}:${match.goalsTeam2}</div>
+                //                 <div class="statistics__element">${match.team2.teamName}</div>
+                //             </div>
+                //         `;
+
+                //         statsContainer.insertAdjacentHTML("beforeend", matchInfo);
+                //     });
+                // })
+                // .catch(error => {
+                //     console.log(error);
+                // })
+
+                // const urlDetailsSecondTeam = "api to backend";
+                // const secondTeamId = response.data.teamId
+
+                // axios.post(urlDetailsFirstTeam, token)
+                //     .then(response => {
+
+                //     })
+
+            })
+            .catch(error => {
+                console.log(error);
             });
-        });
-
-        // document.querySelector("#math-prediction-1 span:last-child").textContent = response.data;
-        // document.querySelector("#math-prediction-x span:last-child").textContent = response.data;
-        // document.querySelector("#math-prediction-2 span:last-child").textContent = response.data;
-        // document.querySelector("#math-prediction-1x span:last-child").textContent = response.data;
-        // document.querySelector("#math-prediction-12 span:last-child").textContent = response.data;
-        // document.querySelector("#math-prediction-2x span:last-child").textContent = response.data;
-
-        // document.querySelector("#neuro-prediction-1 span:last-child").textContent = response.data;
-        // document.querySelector("#neuro-prediction-x span:last-child").textContent = response.data;
-        // document.querySelector("#neuro-prediction-2 span:last-child").textContent = response.data;
-        // document.querySelector("#neuro-prediction-1x span:last-child").textContent = response.data;
-        // document.querySelector("#neuro-prediction-12 span:last-child").textContent = response.data;
-        // document.querySelector("#neuro-prediction-2x span:last-child").textContent = response.data;
-
-        // DISPLAYING DATE
-        // document.querySelector("#match-date").textContent = response.data;
-        // document.querySelector("#match-time").textContent = response.data;
-
-        // DISPLAYING STATS
-
-        // const urlDetailsFirstTeam = "api to backend";
-        // const firstTeamId = response.data.teamId
-
-        // axios.post(urlDetailsFirstTeam, {
-        //     token,
-        //     firstTeamId
-        // })
-        // .then(response => {
-        //     const statsContainer = document.querySelector("#statistics-team-1 .statistics__container");
-
-        //     response.data.matches.forEach(match => {
-        //         const matchInfo = `
-        //             <div class="statistics__row">
-        //                 <div class="statistics__element">${match.team1.teamName}</div>
-        //                 <div class="statistics__element statistics__element--win">${match.goalsTeam1}:${match.goalsTeam2}</div>
-        //                 <div class="statistics__element">${match.team2.teamName}</div>
-        //             </div>
-        //         `;
-
-        //         statsContainer.insertAdjacentHTML("beforeend", matchInfo);
-        //     });
-        // })
-        // .catch(error => {
-        //     console.log(error);
-        // })
-
-        // const urlDetailsSecondTeam = "api to backend";
-        // const secondTeamId = response.data.teamId
-
-        // axios.post(urlDetailsFirstTeam, token)
-        //     .then(response => {
-
-        //     })
-
-        // })
-        // .catch(error => {
-        //     console.log(error);
-        // });
 
     } else {
 

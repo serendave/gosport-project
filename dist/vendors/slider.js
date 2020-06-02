@@ -212,6 +212,8 @@ var slideShow = (function () {
     }
 }());
 
-slideShow('.slider', {
-    isAutoplay: true
-});
+setTimeout(() => {
+    slideShow('.slider', {
+        isAutoplay: true
+    });
+}, 1000);

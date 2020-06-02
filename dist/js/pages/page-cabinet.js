@@ -1,10 +1,11 @@
 window.onload = () => {
     const token = localStorage.getItem("token");
+    console.log(token);
 
     if (token) {
-        const url = "api to backend";
+        const url = "http://localhost:3000/api/user-info";
 
-        axios.post(url, token)
+        axios.post(url, { token })
             .then(response => {
                 console.log(response.data);
 

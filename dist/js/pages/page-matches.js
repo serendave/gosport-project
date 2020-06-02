@@ -3,32 +3,30 @@ import createPopup from "../utils/popup.js";
 
 const token = localStorage.getItem("token");
 
-// API call to backend
-const matches = [
-    new Match(27, "Bate — Neman Gordno", "Bate", "Neman Gordo", new Date(2020, 4, 5, 14, 55), 1.45, 1.74, 2.3),
-    new Match(38, "Bate — Neman Gordno", "Bate", "Neman Gordo", new Date(2020, 4, 20, 14, 55), 1.75, 1.6, 2.41),
-    new Match(10, "Bate — Neman Gordno", "Bate", "Neman Gordo", new Date(2020, 4, 16, 14, 55), 1.45, 1.74, 2.3),
-    new Match(43, "Bate — Neman Gordno", "Bate", "Neman Gordo", new Date(2020, 4, 23, 14, 55), 1.38, 1.74, 2.53),
-    new Match(23, "Bate — Neman Gordno", "Bate", "Neman Gordo", new Date(2020, 4, 3, 14, 55), 2.23, 1.8, 2.3),
-    new Match(15, "Bate — Neman Gordno", "Bate", "Neman Gordo", new Date(2020, 4, 21, 14, 55), 1.45, 1.74, 3),
-    new Match(16, "Bate — Neman Gordno", "Bate", "Neman Gordo", new Date(2020, 4, 7, 14, 55), 3.19, 1.56, 2.14),
-    new Match(21, "Bate — Neman Gordno", "Bate", "Neman Gordo", new Date(2020, 4, 25, 14, 55), 1.45, 1.2, 2.5),
-    new Match(25, "Bate — Neman Gordno", "Bate", "Neman Gordo", new Date(2020, 4, 25, 14, 55), 3.2, 2.5, 1.2),
-    new Match(30, "Bate — Neman Gordno", "Bate", "Neman Gordo", new Date(2020, 4, 25, 14, 55), 1.8, 2.3, 3.5)
-];
+// Init matches as empty array
+const matches = [];
 
 // Displaying matches
 const matchesContainer = document.querySelector("#matches-container");
 
 async function init() {
+
+    // API call to backend
     try {
         const url = "http://localhost:3000/api/get-current-matches";
-        // // GET RESPONSE
+        
+        // GET RESPONSE
         let response = await axios.get(url);
+        // console.log(response);
     
-        console.log(response);
         // TRANSFORM RESPONSE
-        // matches = await response.JSON();
+        response.data.matches.forEach(match => {
+            matches.push(
+                new Match(match._id, `${match.team1.teamName} — ${match.team2.teamName}`,
+                    match.team1.teamName, match.team2.teamName, new Date(2020, 4, 25, 14, 55), 1.5, 2, 1.5
+                )
+            );
+        });
     
         // DISPLAY
         displayMatches(matches);
