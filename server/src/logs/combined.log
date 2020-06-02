@@ -1,0 +1,4 @@
+{"message":"Logger initialized","level":"info","timestamp":"2020-06-02T14:47:13.284Z"}
+{"message":"Аpp listening on port 3000!","level":"info","timestamp":"2020-06-02T14:47:13.762Z"}
+{"message":"Connected to mongoDB successfully","level":"info","timestamp":"2020-06-02T14:47:14.348Z"}
+{"message":"Sending current matches: [object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object],[object Object]","level":"info","timestamp":"2020-06-02T14:47:32.176Z"}

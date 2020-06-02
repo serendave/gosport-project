@@ -162,7 +162,7 @@ window.onload = () => {
 
         axios.get(url, { params: { token, matchId } })
             .then(response => {
-                // console.log(response);
+                console.log(response);
 
                 const match = response.data.match;
 
@@ -212,12 +212,18 @@ window.onload = () => {
 
 
                 // DISPLAYING NEURO PREDICTION
-                // document.querySelector("#neuro-prediction-1 span:last-child").textContent = response.data;
-                // document.querySelector("#neuro-prediction-x span:last-child").textContent = response.data;
-                // document.querySelector("#neuro-prediction-2 span:last-child").textContent = response.data;
-                // document.querySelector("#neuro-prediction-1x span:last-child").textContent = response.data;
-                // document.querySelector("#neuro-prediction-12 span:last-child").textContent = response.data;
-                // document.querySelector("#neuro-prediction-2x span:last-child").textContent = response.data;
+                document.querySelector("#neuro-prediction-1 span:last-child")
+                    .textContent = match.neuralPredicts["1"] + "%";
+                document.querySelector("#neuro-prediction-x span:last-child")
+                    .textContent = match.neuralPredicts["x"] + "%";
+                document.querySelector("#neuro-prediction-2 span:last-child")
+                    .textContent = match.neuralPredicts["2"] + "%";
+                document.querySelector("#neuro-prediction-1x span:last-child")
+                    .textContent = match.neuralPredicts["1x"] + "%";
+                document.querySelector("#neuro-prediction-12 span:last-child")
+                    .textContent = match.neuralPredicts["12"] + "%";
+                document.querySelector("#neuro-prediction-2x span:last-child")
+                    .textContent = match.neuralPredicts["2x"] + "%";
 
 
                 // DISPLAYING DATE
@@ -261,7 +267,7 @@ window.onload = () => {
 
                 axios.get(userInfoUrl, { params: { token } })
                     .then(response => {
-                        console.log(response);
+                        // console.log(response);
                         balance = response.data.user.balance;
                     })
                     .catch(error => {
