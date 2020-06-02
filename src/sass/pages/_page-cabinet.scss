@@ -26,6 +26,15 @@
         }
     }
 
+    &__logout {
+        margin: 2rem 0;
+        
+        button {
+            margin-left: auto;
+            margin-right: 2rem;
+        }
+    }
+
     &__user {
         display: flex;
         margin-bottom: 3.5rem;

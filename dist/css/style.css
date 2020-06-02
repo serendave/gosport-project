@@ -399,7 +399,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ccc; }
+    border: 1px solid #ccc;
+    text-align: center; }
   .statistics__row {
     display: flex; }
   .statistics__element {
@@ -410,7 +411,8 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #ccc; }
+    border: 1px solid #ccc;
+    text-align: center; }
     .statistics__element--win {
       background-color: #36be36b6; }
     .statistics__element--lose {
@@ -446,8 +448,7 @@ body {
       height: 6.4rem;
       fill: #ffc107; }
   .features__text {
-    font-size: 1.8rem;
-    color: #212121; }
+    font-size: 1.8rem; }
 
 .matches {
   background-color: #2c3e50;
@@ -606,6 +607,11 @@ body {
     .page-cabinet__premium-title--active {
       opacity: 1;
       visibility: visible; }
+  .page-cabinet__logout {
+    margin: 2rem 0; }
+    .page-cabinet__logout button {
+      margin-left: auto;
+      margin-right: 2rem; }
   .page-cabinet__user {
     display: flex;
     margin-bottom: 3.5rem; }

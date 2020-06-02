@@ -9,29 +9,43 @@ const matches = [];
 // Displaying matches
 const matchesContainer = document.querySelector("#matches-container");
 
+function parseDate(dateToParse) {
+    const [dateInfo, timeInfo] = dateToParse.split(" ");
+    const [date, month, year] = dateInfo.split("-");
+    const [hours, minutes] = timeInfo.split(":");
+
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(date),
+        parseInt(hours), parseInt(minutes));
+}
+
 async function init() {
 
     // API call to backend
     try {
         const url = "http://localhost:3000/api/get-current-matches";
-        
+
         // GET RESPONSE
         let response = await axios.get(url);
-        // console.log(response);
-    
+        console.log(response);
+
         // TRANSFORM RESPONSE
         response.data.matches.forEach(match => {
             matches.push(
                 new Match(match._id, `${match.team1.teamName} — ${match.team2.teamName}`,
-                    match.team1.teamName, match.team2.teamName, new Date(2020, 4, 25, 14, 55), 1.5, 2, 1.5
+                    match.team1.teamName, match.team2.teamName,
+                    parseDate(match.date),
+                    match.coefficients["1"].toFixed(2),
+                    match.coefficients["x"].toFixed(2),
+                    match.coefficients["2"].toFixed(2)
                 )
             );
         });
-    
+
         // DISPLAY
         displayMatches(matches);
     }
-    catch(error) {
+    catch (error) {
+        console.log(error);
         createPopup("Some error while loading matches occured", document.querySelector("body"));
     }
 }
@@ -62,7 +76,7 @@ function displayMatches(matches) {
         
                     <div class="match__date-info">
                         <p class="match__date">
-                            ${match.datetime.getDate() >= 10? match.datetime.getDate() : "0" + match.datetime.getDate()}.${match.datetime.getMonth() + 1 >= 10? match.datetime.getMonth() + 1: "0" + (match.datetime.getMonth() + 1)}.${match.datetime.getFullYear()}
+                            ${match.datetime.getDate() >= 10 ? match.datetime.getDate() : "0" + match.datetime.getDate()}.${match.datetime.getMonth() + 1 >= 10 ? match.datetime.getMonth() + 1 : "0" + (match.datetime.getMonth() + 1)}.${match.datetime.getFullYear()}
                         </p>
                         <p class="match__time">${match.datetime.getHours()}:${match.datetime.getMinutes()}</p>
                     </div>
@@ -71,23 +85,23 @@ function displayMatches(matches) {
                         <div class="match__coefficients-container">
                             <div class="match__coefficient match__coefficient--first">1: ${match.coefFirst}</div>
                             <div class="match__coefficient match__coefficient--second">x: ${match.coefX}</div>
-                            <div class="match__coefficient match__coefficient--third">2: ${match.coefSecond}</div>
+                            <div class="match__coefficient match__coefficient--third">2: ${match.coefSecond > 100? (10).toFixed(2) : match.coefSecond}</div>
                         </div>
                         <a class="btn btn-link" href="http://127.0.0.1:8080/match-details.html?id=${match.id}" id="match-detail-link-${match.id}">Detailed View</a>
                     </div>
                 </figure>
             `;
-        
+
             matchesContainer.insertAdjacentHTML("beforeend", matchContent);
         });
-        
+
         const btnLinks = Array.from(document.querySelectorAll(".btn-link"));
         btnLinks.forEach(btnLink => {
             btnLink.addEventListener("click", e => {
                 if (!token) {
                     e.preventDefault();
                     createPopup(
-                        "Sign in to view defailed information about matches and make bets", 
+                        "Sign in to view defailed information about matches and make bets",
                         document.querySelector("body"),
                         "http://127.0.0.1:8080/login.html",
                         "Sign in"
@@ -132,19 +146,19 @@ btnApply.addEventListener("click", e => {
 
         if (checkBox1.checked) {
             filteredMatches = filteredMatches.filter(match => {
-                return match.coefFirst >= coefFrom.value && match.coefFirst <= coefTo.value;
+                return match.coefFirst >= parseFloat(coefFrom.value) && match.coefFirst <= parseFloat(coefTo.value);
             });
         }
 
         if (checkBoxX.checked) {
             filteredMatches = filteredMatches.filter(match => {
-                return match.coefX >= coefFrom.value && match.coefX <= coefTo.value;
+                return match.coefX >= parseFloat(coefFrom.value) && match.coefX <= parseFloat(coefTo.value);
             });
         }
 
         if (checkBox2.checked) {
             filteredMatches = filteredMatches.filter(match => {
-                return match.coefSecond >= coefFrom.value && match.coefSecond <= coefTo.value;
+                return match.coefSecond >= parseFloat(coefFrom.value) && match.coefSecond <= parseFloat(coefTo.value);
             });
         }
     }
