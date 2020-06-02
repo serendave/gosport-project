@@ -17,18 +17,20 @@ $(document).ready(() => {
 
     axios.get(url)
         .then(response => {
-            for (let i = 1; i <= numberOfMatchesToShow; i++) {
+            for (let i = 0; i < numberOfMatchesToShow; i++) {
                 const match = response.data.matches[i];
+                const [date, time] = match.date.split(" ");
+                
                 const matchTemplate = `
-                    <figure class="matches__match slider__item slider__item_${i}">
+                    <figure class="matches__match slider__item slider__item_${i + 1}">
                         <div class="matches__team">
                             <img src="dist/images/team-logo-1.png" alt="Team 1 logo" class="matches__team-logo">
                             <p class="matches__team-name">${match.team1.teamName}</p>
                         </div>
                         <div class="matches__info">
                             <img src="dist/images/match.jpg" alt="Match image" class="matches__image">
-                            <p class="matches__date">05.04.2020</p>
-                            <p class="matches__time">12:55</p>
+                            <p class="matches__date">${date.replace(/-/g, ".")}</p>
+                            <p class="matches__time">${time}</p>
                         </div>
                         <div class="matches__team">
                             <img src="dist/images/team-logo-2.jpg" alt="Team 2 logo" class="matches__team-logo">

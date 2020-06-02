@@ -1,0 +1,17 @@
+.page-about-us {
+    padding: 5rem 0;
+
+    &__info {
+        margin-bottom: 5rem;
+    }
+
+    &__contacts, &__creators {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+        grid-gap: 2rem;
+    }
+
+    &__creators {
+        margin: 3rem 0;
+    }
+}

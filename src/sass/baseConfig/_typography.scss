@@ -52,6 +52,24 @@ body {
             background-color: currentColor;
         }
     }
+
+    &--version-2 {
+        font-size: 4rem;
+        text-align: start;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid $dark;
+        margin-bottom: 2rem;
+    }
+}
+
+.text {
+    font-size: 1.8rem;
+    color: $dark;
+    margin-bottom: 1.5rem;
+
+    &--grey {
+        color: $grey-dark;
+    }
 }
 
 .heading-3 {

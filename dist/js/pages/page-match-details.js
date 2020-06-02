@@ -2,7 +2,8 @@ import createPopup from "../utils/popup.js";
 
 let matchId;
 let chosenCoefficient;
-let teamName = "Bate — Neman Gordno";
+let teamName = "";
+let token;
 
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -35,23 +36,31 @@ function displayBetModal(element) {
     makeBetButton.addEventListener("click", e => {
         modalMakeBet.classList.add("page__modal--hidden");
 
-        // const url = "";
-        // axios.post()
-        //     .then(response => {
-        //         if (document.querySelectorAll(".page__modal").length < 2) {
-        //             createPopup(
-        //                 "You made bet! Go to your cabinet to chosen bets", 
-        //                 "", 
-        //                 "http://127.0.0.1:8080/cabinet.html", 
-        //                 "Go to my cabinet"
-        //             );
-        //         }
-        //     })
-        //     .catch(error => {
-        //         if (document.querySelectorAll(".page__modal").length < 2) {
-        //             createPopup("Some error occured. Please, try again");
-        //         }
-        //     }); 
+        const url = "http://localhost:3000/api/make-bet";
+        axios.post(url, {
+            token,
+            matchId,
+            coefficient: chosenCoefficient.split(" ")[0]
+        })
+            .then(response => {
+                console.log(response);
+
+                if (document.querySelectorAll(".page__modal").length < 2) {
+                    createPopup(
+                        "You made bet! Go to your cabinet to see chosen bets",
+                        "",
+                        "http://127.0.0.1:8080/cabinet.html",
+                        "Go to my cabinet"
+                    );
+                }
+            })
+            .catch(error => {
+                console.log(error);
+
+                if (document.querySelectorAll(".page__modal").length < 2) {
+                    createPopup("Some error occured. Please, try again");
+                }
+            });
     });
 }
 
@@ -121,9 +130,9 @@ function parseDate(dateToParse) {
 window.onload = () => {
 
     // Check if user is authenticated
-    const token = localStorage.getItem("token");
+    token = localStorage.getItem("token");
 
-    if (token) {
+    if (token !== undefined && token !== null) {
 
         // Parse the URL parameter
         matchId = getParameterByName("id");
@@ -137,11 +146,12 @@ window.onload = () => {
 
         axios.get(url, { params: { token, matchId } })
             .then(response => {
+                console.log(response);
 
                 const match = response.data.match;
 
                 // DISPLAYING GENERAL INFO
-                document.querySelector("#match-name").textContent = 
+                document.querySelector("#match-name").textContent =
                     match.team1.teamName + " : " + match.team2.teamName;
 
                 // DISPLAYING COEFFICIENTS
@@ -150,7 +160,9 @@ window.onload = () => {
                 document.querySelector("#coefficient-x span:last-child")
                     .textContent = match.coefficients["x"].toFixed(2);
                 document.querySelector("#coefficient-2 span:last-child")
-                    .textContent = match.coefficients["2"].toFixed(2);
+                    .textContent = match.coefficients["2"] > 100 ?
+                        match.coefficients["2"].toString().substr(0, 2)
+                        : match.coefficients["2"].toFixed(2);
                 document.querySelector("#coefficient-1x span:last-child")
                     .textContent = match.coefficients["1x"].toFixed(2);
                 document.querySelector("#coefficient-12 span:last-child")
@@ -181,7 +193,7 @@ window.onload = () => {
                     .textContent = match.mathPredicts["12"].toFixed(2) + " %";
                 document.querySelector("#math-prediction-2x span:last-child")
                     .textContent = match.mathPredicts["2x"].toFixed(2) + " %";
-                    
+
 
                 // DISPLAYING NEURO PREDICTION
                 // document.querySelector("#neuro-prediction-1 span:last-child").textContent = response.data;
@@ -230,6 +242,10 @@ window.onload = () => {
             })
             .catch(error => {
                 console.log(error);
+
+                if (document.querySelectorAll(".page__modal").length < 2) {
+                    createPopup("Some error occured. Please, try again");
+                }
             });
 
     } else {

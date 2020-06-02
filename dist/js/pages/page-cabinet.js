@@ -1,11 +1,15 @@
 window.onload = () => {
     const token = localStorage.getItem("token");
 
-    if (token) {
+    if (token !== undefined && token !== null) {
+
         const url = "http://localhost:3000/api/user-info";
 
         axios(url, { params: { token } })
             .then(response => {
+                console.log(response);
+
+
                 const userInfo = response.data.user;
 
                 // DISPLAYING INFO
@@ -32,9 +36,8 @@ window.onload = () => {
                         "Not specified" : userInfo.city;
 
                 document.querySelector("#registration-date").textContent =
-                    userInfo.dateOfRegistration ?? "Not specified";
+                    userInfo.dateOfRegistration.split("T")[0].split("-").reverse().join(".");
 
-                document.querySelector("#bets-done").textContent = userInfo.bets.length;
 
                 if (userInfo.isPremium) {
                     document.querySelector("#title-premium")
@@ -48,6 +51,34 @@ window.onload = () => {
                         .classList.add("page-cabinet__premium-title--disabled");
                 }
                 document.querySelector("#balance").textContent = userInfo.balance ?? 320;
+
+                // DISPLAYING BETS
+                document.querySelector("#bets-done").textContent = userInfo.bets.length;
+
+                const betsContainer = document.querySelector(".page-cabinet__bets-history");
+                userInfo.bets.forEach(bet => {
+                    const betInfo = `
+                        <div class="page-cabinet__bet animate__animated animate__zoomIn animate__faster">
+                            <div class="page-cabinet__bet-info page-cabinet__bet-info--name">
+                                Match name 
+                            </div>
+                            <div class="page-cabinet__bet-info page-cabinet__bet-info--coefficient">
+                                ${bet.coefficient} (${parseInt(bet.coefficientValue).toFixed(2)})
+                            </div>
+                            <div class="page-cabinet__bet-info page-cabinet__bet-info--bet">
+                                <span>50</span>
+                                <span>UAH</span>
+                            </div>
+                            <div class="page-cabinet__bet-info page-cabinet__bet-info--date">
+                                <span>Date: </span>
+                                <span>${bet.time.split("T")[0].split("-").reverse().join(".")}</span>
+                            </div>
+                        </div>
+                    `;
+
+                    betsContainer.insertAdjacentHTML("beforeend", betInfo);
+                });
+
             })
             .catch(error => {
                 console.log(error);
