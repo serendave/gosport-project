@@ -105,6 +105,10 @@ window.onload = () => {
                 });
         });
 
+        document.querySelector("#btn-replenish").addEventListener("click", e => {
+            window.location = "https://www.liqpay.ua/api/3/checkout?data=eyJ2ZXJzaW9uIjozLCJhY3Rpb24iOiJwYXkiLCJwdWJsaWNfa2V5IjoiaTkyNzU2NzMyNzkiLCJhbW91bnQiOiIxMDAiLCJjdXJyZW5jeSI6IlVBSCIsImRlc2NyaXB0aW9uIjoiUmVwbGVuaXNoIGJhbGFuY2UiLCJ0eXBlIjoiYnV5IiwibGFuZ3VhZ2UiOiJydSJ9&signature=tmMHSmrjbmWTL9v7ydFI6PuRfng%3D";
+        });
+
         document.querySelector("#btn-edit").addEventListener("click", e => {
             if (document.querySelector(".page-register__form-data")) {
                 document.querySelector(".page-cabinet__form").innerHTML = "";
