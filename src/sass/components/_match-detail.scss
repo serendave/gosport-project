@@ -1,6 +1,8 @@
 .match-detail {
     background-color: #eee;
     padding: 5rem;
+
+   
     
     &__general-info {
         padding: 2rem;
@@ -20,6 +22,10 @@
     &__logo {
         width: 15rem;
         height: 15rem;
+
+        @media (max-width: 800px) {
+            display: none;
+        }
     }
 
     &__info {
@@ -79,5 +85,9 @@
 
     &__team-statistics {
         display: flex;
+
+        @media (max-width: 800px) {
+            flex-direction: column;
+        }
     }
 }

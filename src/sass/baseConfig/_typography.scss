@@ -6,6 +6,18 @@ $font: "Roboto", sans-serif;
 
 html {
     font-size: 62.5%;
+
+    @media (max-width: 1000px) {
+        font-size: 50%;
+    }
+
+    @media (max-width: 600px) {
+        font-size: 43.75%;
+    }
+
+    @media (max-width: 400px) {
+        font-size: 37.5%;
+    }
 }
 
 body {
@@ -22,6 +34,10 @@ body {
     letter-spacing: 1px;
     color: $light;
     font-weight: 300;
+
+    @media (max-width: 500px) {
+        font-size: 4rem;
+    }
 }
 
 .heading-2 {
@@ -47,6 +63,24 @@ body {
             transform: translateX(-50%);
             background-color: currentColor;
         }
+    }
+
+    &--version-2 {
+        font-size: 4rem;
+        text-align: start;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid $dark;
+        margin-bottom: 2rem;
+    }
+}
+
+.text {
+    font-size: 1.8rem;
+    color: $dark;
+    margin-bottom: 1.5rem;
+
+    &--grey {
+        color: $grey-dark;
     }
 }
 

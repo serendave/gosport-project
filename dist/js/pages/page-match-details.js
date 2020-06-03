@@ -1,120 +1,328 @@
+import createPopup from "../utils/popup.js";
+
 let matchId;
 let chosenCoefficient;
-let teamName;
+let teamName = "";
+let token;
+let balance;
+let isPremium;
+
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+
+function displayBetModal(element) {
+    chosenCoefficient = element.dataset.value;
+    const [coefficient, coefValue] = chosenCoefficient.split(" ");
+
+    const modalMakeBet = document.querySelector("#modal-make-bet");
+    const betInfo = document.querySelector("#modal-make-bet .page__modal-bet-info");
+    betInfo.children[0].textContent = teamName;
+    betInfo.children[0].style.display = "block";
+    betInfo.children[2].textContent = `${coefficient} (${coefValue})`;
+
+    modalMakeBet.classList.remove("page__modal--hidden");
+
+    const modalClose = document.querySelector("#modal-make-bet .page__modal-content--close");
+    modalClose.addEventListener("click", e => {
+        modalMakeBet.classList.add("page__modal--hidden");
+    });
+
+    const balanceInfo = document.querySelector(".page__modal-balance span:last-child");
+    balanceInfo.textContent = balance + " UAH";
+
+    const makeBetButton = document.querySelector("#btn-make-bet");
+    makeBetButton.addEventListener("click", e => {
+        modalMakeBet.classList.add("page__modal--hidden");
+
+        const betValueInput = document.querySelector("#bet-value");
+        const betValue = parseInt(betValueInput.value);
+        if (betValue == NaN) {
+            betValue = "0";
+        }
+
+        const betData = {
+            token,
+            matchId,
+            coefficient,
+            amount: betValue
+        };
+
+        console.log(betData);
+
+        const url = "http://localhost:3000/api/make-bet";
+        axios.post(url, betData)
+            .then(response => {
+                console.log(response);
+
+                if (response.data.errorCode) {
+                    if (document.querySelectorAll(".page__modal").length < 2) {
+                        createPopup(
+                            "You don't have enough money on your account. Replenish balance",
+                            "",
+                            "http://127.0.0.1:8080/cabinet.html",
+                            "Go to my cabinet"
+                        );
+                    }
+
+                    return;
+                }
+
+                if (document.querySelectorAll(".page__modal").length < 2) {
+                    createPopup(
+                        "You made bet! Go to your cabinet to see chosen bets",
+                        "",
+                        "http://127.0.0.1:8080/cabinet.html",
+                        "Go to my cabinet"
+                    );
+                }
+            })
+            .catch(error => {
+                console.log(error);
+
+                if (document.querySelectorAll(".page__modal").length < 2) {
+                    createPopup("Some error occured. Please, try again");
+                }
+            });
+    });
+}
+
+function displayStats(matches, statsContainer, teamId) {
+    matches.forEach(match => {
+
+        let currentTeam, otherTeam;
+        let currentTeamScore, otherTeamScore;
+        let result;
+
+        if (teamId === match.team1._id) {
+            currentTeam = match.team1;
+            currentTeamScore = match.goalsTeam1;
+            otherTeam = match.team2;
+            otherTeamScore = match.goalsTeam2;
+        } else {
+            currentTeam = match.team2;
+            currentTeamScore = match.goalsTeam2;
+            otherTeam = match.team1;
+            otherTeamScore = match.goalsTeam1;
+        }
+
+        if (currentTeamScore > otherTeamScore) {
+            result = "statistics__element--win";
+        } else if (currentTeamScore === otherTeamScore) {
+            result = "statistics__element--draw";
+        } else {
+            result = "statistics__element--lose";
+        }
+
+        let resultScore = `${currentTeamScore}:${otherTeamScore}`;
+
+        if (currentTeamScore === null || otherTeamScore === null) {
+            resultScore = "Playing";
+            result = "statistics__element--win";
+        }
+
+        if (currentTeam.teamName.split(" ")[1] === "Mönchengladbach") {
+            currentTeam.teamName = "Mönchen Gladbach";
+        }
+
+        if (otherTeam.teamName.split(" ")[1] === "Mönchengladbach") {
+            otherTeam.teamName = "Mönchen Gladbach";
+        }
+
+        const matchInfo = `
+                <div class="statistics__row">
+                    <div class="statistics__element">${currentTeam.teamName}</div>
+                    <div class="statistics__element ${result}">${resultScore}</div>
+                    <div class="statistics__element">${otherTeam.teamName}</div>
+                </div>
+            `;
+
+        statsContainer.insertAdjacentHTML("beforeend", matchInfo);
+    });
+}
+
+function displayPremiumAdv(element) {
+    element.innerHTML = `
+        <h2 class="heading-2 heading-2--light" style="margin-right: 2rem">Upgrade to </h2>
+        <a href="cabinet.html" class="btn btn--big">Premium</a>
+    `;
+
+    element.style.display = "block";
+    element.style.height = "20rem";
+    element.style.display = "flex";
+    element.style.alignItems = "center";
+    element.style.justifyContent = "center";
+    element.style.backgroundImage = "url(dist/images/upgrade-premium.jpg)";
+    element.style.backgroundPosition = "center";
+    element.style.backgroundSize = "cover";
+}
+
+function parseDate(dateToParse) {
+    const [dateInfo, timeInfo] = dateToParse.split(" ");
+    const [date, month, year] = dateInfo.split("-");
+    const [hours, minutes] = timeInfo.split(":");
+
+    return new Date(parseInt(year), parseInt(month) - 1, parseInt(date),
+        parseInt(hours), parseInt(minutes));
+}
 
 window.onload = () => {
 
     // Check if user is authenticated
-    const token = localStorage.getItem("token");
+    token = localStorage.getItem("token");
 
-    if (!token) {
+    if (token !== undefined && token !== null) {
+
+        // GETTING USER BALANCE AND PREMIUM
+        const userInfoUrl = "http://localhost:3000/api/user-info";
+
+        axios.get(userInfoUrl, { params: { token } })
+            .then(response => {
+                // console.log(response);
+                balance = response.data.user.balance;
+                isPremium = response.data.user.isPremium;
+            })
+            .catch(error => {
+                console.log(error);
+            });
 
         // Parse the URL parameter
-        function getParameterByName(name, url) {
-            if (!url) url = window.location.href;
-            name = name.replace(/[\[\]]/g, "\\$&");
-            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-                results = regex.exec(url);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, " "));
-        }
-
         matchId = getParameterByName("id");
-        console.log(matchId);
+        // console.log(matchId);
 
         // Get the match and display it
-        const url = "api to backend";
+        const url = "http://localhost:3000/api/match/get-details";
 
-        // axios.post(url, token)
-        //     .then(response => {
-        // DISPLAYING COEFFICIENTS
-        // document.querySelector("#coefficient-1 span:last-child").textContent = response.data;
-        // document.querySelector("#coefficient-x span:last-child").textContent = response.data;
-        // document.querySelector("#coefficient-2 span:last-child").textContent = response.data;
-        // document.querySelector("#coefficient-1x span:last-child").textContent = response.data;
-        // document.querySelector("#coefficient-12 span:last-child").textContent = response.data;
-        // document.querySelector("#coefficient-2x span:last-child").textContent = response.data;
-        const coefficients = Array.from(
-            document.querySelectorAll(".match-detail__coefficients .match-detail__item"));
+        // console.log(token, "token");
+        // console.log(matchId, "matchId");
 
-        coefficients.forEach(coefficient => {
-            coefficient.addEventListener("click", e => {
-                const modalMakeBet = document.querySelector("#modal-make-bet");
-                modalMakeBet.classList.remove("page__modal--hidden");
+        axios.get(url, { params: { token, matchId } })
+            .then(response => {
+                console.log(response);
 
-                const modalClose = document.querySelector("#modal-make-bet .page__modal-content--close");
-                modalClose.addEventListener("click", e => {
-                    modalMakeBet.classList.add("page__modal--hidden");
+                const match = response.data.match;
+
+                // DISPLAYING GENERAL INFO
+                document.querySelector("#match-name").textContent =
+                    match.team1.teamName + " : " + match.team2.teamName;
+
+                // DISPLAYING COEFFICIENTS
+                document.querySelector("#coefficient-1 span:last-child")
+                    .textContent = match.coefficients["1"].toFixed(2);
+                document.querySelector("#coefficient-x span:last-child")
+                    .textContent = match.coefficients["x"].toFixed(2);
+                document.querySelector("#coefficient-2 span:last-child")
+                    .textContent = match.coefficients["2"] > 100 ?
+                        match.coefficients["2"].toString().substr(0, 2)
+                        : match.coefficients["2"].toFixed(2);
+                document.querySelector("#coefficient-1x span:last-child")
+                    .textContent = match.coefficients["1x"].toFixed(2);
+                document.querySelector("#coefficient-12 span:last-child")
+                    .textContent = match.coefficients["12"].toFixed(2);
+                document.querySelector("#coefficient-2x span:last-child")
+                    .textContent = match.coefficients["2x"].toFixed(2);
+
+
+                const coefficients = Array.from(
+                    document.querySelectorAll(".match-detail__coefficients .match-detail__item"));
+
+                coefficients.forEach(coefficient => {
+                    coefficient.addEventListener("click", e => {
+                        displayBetModal(e.target)
+                    });
                 });
+
+                // DISPLAYING MATH PREDICTION
+                document.querySelector("#math-prediction-1 span:last-child")
+                    .textContent = match.mathPredicts["1"].toFixed(2) + " %";
+                document.querySelector("#math-prediction-x span:last-child")
+                    .textContent = match.mathPredicts["x"].toFixed(2) + " %";
+                document.querySelector("#math-prediction-2 span:last-child")
+                    .textContent = match.mathPredicts["2"].toFixed(2) + " %";
+                document.querySelector("#math-prediction-1x span:last-child")
+                    .textContent = match.mathPredicts["1x"].toFixed(2) + " %";
+                document.querySelector("#math-prediction-12 span:last-child")
+                    .textContent = match.mathPredicts["12"].toFixed(2) + " %";
+                document.querySelector("#math-prediction-2x span:last-child")
+                    .textContent = match.mathPredicts["2x"].toFixed(2) + " %";
+
+
+                if (isPremium) {
+                    // DISPLAYING NEURO PREDICTION
+                    document.querySelector("#neuro-prediction-1 span:last-child")
+                        .textContent = match.neuralPredicts["1"] + "%";
+                    document.querySelector("#neuro-prediction-x span:last-child")
+                        .textContent = match.neuralPredicts["x"] + "%";
+                    document.querySelector("#neuro-prediction-2 span:last-child")
+                        .textContent = match.neuralPredicts["2"] + "%";
+                    document.querySelector("#neuro-prediction-1x span:last-child")
+                        .textContent = match.neuralPredicts["1x"] + "%";
+                    document.querySelector("#neuro-prediction-12 span:last-child")
+                        .textContent = match.neuralPredicts["12"] + "%";
+                    document.querySelector("#neuro-prediction-2x span:last-child")
+                        .textContent = match.neuralPredicts["2x"] + "%";
+                } else {
+                    const neuroPredictsContainer = document.querySelector(".match-detail__neuro-prediction");
+                    displayPremiumAdv(neuroPredictsContainer);
+                }
+
+                // DISPLAYING DATE
+                const datetime = parseDate(match.date);
+
+                const date = `${datetime.getDate() >= 10 ? datetime.getDate() : "0" + datetime.getDate()}.${datetime.getMonth() + 1 >= 10 ? datetime.getMonth() + 1 : "0" + (datetime.getMonth() + 1)}.${datetime.getFullYear()}`;
+
+                const time = `${datetime.getHours()}:${datetime.getMinutes()}`;
+
+                document.querySelector("#match-date").textContent = date;
+                document.querySelector("#match-time").textContent = time;
+
+                if (isPremium) {
+
+                    // DISPLAYING STATS
+                    const urlStats = "http://localhost:3000/api/team/getStats";
+                    const firstTeamId = match.team1._id;
+                    const secondTeamId = match.team2._id;
+
+                    axios.get(urlStats, { params: { token, teamId: firstTeamId } })
+                        .then(response => {
+                            // console.log(response);
+                            const statsContainer = document.querySelector("#statistics-team-1 .statictics__container");
+                            displayStats(response.data.matches, statsContainer, firstTeamId);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+
+                    axios.get(urlStats, { params: { token, teamId: secondTeamId } })
+                        .then(response => {
+                            // console.log(response);
+                            const statsContainer = document.querySelector("#statistics-team-2 .statictics__container");
+                            displayStats(response.data.matches, statsContainer, secondTeamId);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                } else {
+                    const statsContainer = document.querySelector(".match-detail__team-statistics");
+                    displayPremiumAdv(statsContainer);
+                }
+            })
+            .catch(error => {
+                console.log(error);
+
+                if (document.querySelectorAll(".page__modal").length < 2) {
+                    createPopup("Some error occured. Please, try again");
+                }
             });
-        });
-
-
-
-        // document.querySelector("#math-prediction-1 span:last-child").textContent = response.data;
-        // document.querySelector("#math-prediction-x span:last-child").textContent = response.data;
-        // document.querySelector("#math-prediction-2 span:last-child").textContent = response.data;
-        // document.querySelector("#math-prediction-1x span:last-child").textContent = response.data;
-        // document.querySelector("#math-prediction-12 span:last-child").textContent = response.data;
-        // document.querySelector("#math-prediction-2x span:last-child").textContent = response.data;
-
-        // document.querySelector("#neuro-prediction-1 span:last-child").textContent = response.data;
-        // document.querySelector("#neuro-prediction-x span:last-child").textContent = response.data;
-        // document.querySelector("#neuro-prediction-2 span:last-child").textContent = response.data;
-        // document.querySelector("#neuro-prediction-1x span:last-child").textContent = response.data;
-        // document.querySelector("#neuro-prediction-12 span:last-child").textContent = response.data;
-        // document.querySelector("#neuro-prediction-2x span:last-child").textContent = response.data;
-
-        // DISPLAYING DATE
-        // document.querySelector("#match-date").textContent = response.data;
-        // document.querySelector("#match-time").textContent = response.data;
-
-        // DISPLAYING STATS
-
-        // const urlDetailsFirstTeam = "api to backend";
-        // const firstTeamId = response.data.teamId
-
-        // axios.post(urlDetailsFirstTeam, {
-        //     token,
-        //     firstTeamId
-        // })
-        // .then(response => {
-        //     const statsContainer = document.querySelector("#statistics-team-1 .statistics__container");
-
-        //     response.data.matches.forEach(match => {
-        //         const matchInfo = `
-        //             <div class="statistics__row">
-        //                 <div class="statistics__element">${match.team1.teamName}</div>
-        //                 <div class="statistics__element statistics__element--win">${match.goalsTeam1}:${match.goalsTeam2}</div>
-        //                 <div class="statistics__element">${match.team2.teamName}</div>
-        //             </div>
-        //         `;
-
-        //         statsContainer.insertAdjacentHTML("beforeend", matchInfo);
-        //     });
-        // })
-        // .catch(error => {
-        //     console.log(error);
-        // })
-
-        // const urlDetailsSecondTeam = "api to backend";
-        // const secondTeamId = response.data.teamId
-
-        // axios.post(urlDetailsFirstTeam, token)
-        //     .then(response => {
-
-        //     })
-
-        // })
-        // .catch(error => {
-        //     console.log(error);
-        // });
 
     } else {
-
         const cabinet = document.querySelector(".page-match-details .row");
-
         cabinet.innerHTML = "";
 
         const accessDenied = document.createElement("div");
@@ -126,5 +334,7 @@ window.onload = () => {
 
         accessDenied.appendChild(accessDeniedContainter);
         cabinet.appendChild(accessDenied);
+
+        window.location.replace('http://127.0.0.1:8080/matches.html');
     }
 };
